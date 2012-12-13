@@ -1,0 +1,54 @@
+$(document).ready(function(){
+	var $form = $("#add_product_form");
+	
+	$form.spin(false); 
+
+	<% if @has_past_item %>
+		$("#purchase_entry_search_item_id").tokenInput("clear"); 
+		$form.remove();
+		
+		
+		$.msgbox("Sudah ada item <%= @item.name %> di purchase order. Silakan Edit", 
+					{type: "error"});
+	<% end %>
+
+	<% if not @has_past_item and  @has_no_errors  %>
+		// clean the search item
+		$("#purchase_entry_search_item_id").tokenInput("clear");
+		// clean the add product form
+		$form.remove(); 
+		
+		<% new_entry  = escape_javascript(  render :partial => 'purchase_entries/purchase_order/entry', :locals => {
+			:purchase_entry => @purchase_entry ,
+			:purchase_order => @purchase_order 
+		} )%>
+		
+	 $("#purchased_items tbody").append('<%= new_entry %>');
+	
+	 $.msgbox("Berhasil menambahkan item: <%= @item.name %>", 
+					{type: "info"});
+	
+		<% new_total_purchase  = escape_javascript(  render :partial => 'purchase_entries/purchase_order/total_purchase', :locals => { 
+			:purchase_order => @purchase_order 
+		} )%>
+
+		$("#total_purchase").replaceWith('<%= new_total_purchase %>');
+		
+		
+	<% elsif not @has_past_item and not @has_no_errors %>
+		<% new_form = escape_javascript(  render :partial => "purchase_entries/purchase_order/add_product_form", :locals => {
+	    :new_object => @purchase_entry , 
+			:url => purchase_order_purchase_entries_url(@purchase_order) ,
+			:item => @item
+	  })%>
+		//replace the form, show the edit
+		$form.replaceWith("<%= new_form %>"); 
+		
+		$.msgbox("Error dalam menambahkan item: <%= @item.name %>", 
+					{type: "error"});
+	<% end %>
+ 
+	jQuery('.prevent_double_submit').preventDoubleSubmit();
+});
+
+

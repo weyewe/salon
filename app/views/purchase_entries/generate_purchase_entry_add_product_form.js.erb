@@ -1,0 +1,25 @@
+$(document).ready(function(){
+	var $form = $("#add_product_trigger_form");
+	
+	$form.spin(false);
+	
+	
+	
+	<% new_form = escape_javascript(  render :partial => "purchase_entries/purchase_order/add_product_form", :locals => {
+    :new_object => @new_object , 
+		:url => purchase_order_purchase_entries_url(@purchase_order) ,
+		:item => @item
+  })%>
+
+
+	var $add_product_form=  $("#add_product_form");
+	var $form_wrapper = $("#add_product_form_wrapper");
+	
+	if($add_product_form.length == 0 ){
+		$form_wrapper.append('<%= new_form %>');
+	}else {
+		$add_product_form.replaceWith('<%= new_form %>');
+	}
+
+	jQuery('.prevent_double_submit').preventDoubleSubmit();
+});

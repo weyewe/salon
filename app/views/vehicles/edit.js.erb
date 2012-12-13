@@ -1,0 +1,30 @@
+$(document).ready(function(){
+	  
+		<% new_form = escape_javascript(  render :partial => "vehicles/new_object_form", :locals => {
+	    :new_object => @vehicle , 
+			:url => update_vehicle_url(@vehicle)  
+	  })%>
+ 
+	$("#editEntry .modal-body").append('<%= new_form %>');
+	
+	jQuery('.prevent_double_submit').preventDoubleSubmit();
+	
+	var search_customer_url = '<%= search_customer_url %>'; 
+	var $search_customer_box = $("#vehicle_customer_id");
+  $search_customer_box.tokenInput( search_customer_url , {
+		propertyToSearch: "name",
+		tokenLimit: 1, 
+		onAdd: function (item) {
+
+		} ,
+		onDelete: function(item){
+		},
+		zindex: 9999,
+		prePopulate:   	[
+			<% if not @vehicle.customer_id.nil? %> 
+				{id: <%= @vehicle.customer_id  %>, name: '<%= @vehicle.customer.name %>'}
+			<% end %>
+		]
+	});
+	
+});

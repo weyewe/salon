@@ -1,0 +1,39 @@
+$(document).ready(function(){
+	var $form = $("#trigger_form");  
+	$form.spin(false);
+	
+	
+		<% new_form = escape_javascript(  render :partial => "exchange_scrap_items/new_object_form", :locals => {
+	    :new_object => @new_object , 
+			:url => exchange_scrap_items_url ,
+			:item_id => @item.id,
+			:item => @item
+	  })%>
+
+		
+
+
+		if($("#new_object").length != 0 ){ 
+			$("#new_object").replaceWith("<%= new_form %>");
+		}else if( $('#new_object').length == 0 ){ 
+			$("#form_wrapper").append("<%= new_form %>"); 
+		} 
+
+		
+		
+		
+
+	
+	<% item_info_table = escape_javascript(  render :partial => "exchange_scrap_items/item_info_table", :locals => {
+    :item =>  @item
+  }) %>
+	
+	
+	if($("#item_info").length != 0 ){ 
+		$("#item_info").replaceWith("<%= item_info_table %>");
+	}else if( $('#item_info').length == 0 ){ 
+		$("#item_info_wrapper").append("<%= item_info_table %>"); 
+	}
+	
+	jQuery('.prevent_double_submit').preventDoubleSubmit();
+});

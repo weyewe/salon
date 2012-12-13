@@ -1,0 +1,47 @@
+$(document).ready(function(){
+	var $form_wrapper = $("#action_button"); 
+	$form_wrapper.spin(false); 
+  
+
+	<% if  @purchase_order.is_confirmed?  %>
+	 // change the form_wrapper 
+		<% new_form_wrapper = escape_javascript(render :partial => 'purchase_entries/post_confirm_action', :locals => {
+			:purchase_order => @purchase_order 
+		}) %>
+		
+		$form_wrapper.replaceWith('<%= new_form_wrapper  %>');
+	
+		<% new_summary  = escape_javascript(  render :partial => "purchase_entries/purchase_order_summary" , :locals => {
+			:purchase_order => @purchase_order
+		} )%>
+		$("#order_summary").replaceWith('<%= new_summary %>');
+		
+		
+		<% new_line_item_listing = escape_javascript(render :partial => "purchase_entries/purchased_items" , :locals => {
+			:purchase_order => @purchase_order
+		}) %>
+		$("#purchased_items").replaceWith('<%= new_line_item_listing %>');
+		
+		
+	
+	// alert msgbox: success confirming 
+		$.msgbox("Berhasil Konfirmasi Pembelian: <%= @purchase_order.code %>", 
+						{type: "info"});
+						
+						
+		$("#add_product_form_wrapper").remove();
+		$("#add_product_trigger_form").remove();
+						 
+		
+		
+	<% else %> 
+		// replace the form, show the edit 
+		
+		$.msgbox("Error konfirmasi  pembelian: <%= @purchase_order.code %>", 
+					{type: "error"});
+	<% end %>
+ 
+	jQuery('.prevent_double_submit').preventDoubleSubmit();
+});
+
+

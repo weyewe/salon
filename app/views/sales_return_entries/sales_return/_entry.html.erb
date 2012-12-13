@@ -1,0 +1,35 @@
+
+<% entry_object = sales_return_entry.sales_entry.item %>
+<tr id='entry-<%= sales_return_entry.id %>'>
+	<td class='identifier'>
+		<%= entry_object.name %>  
+	</td>
+
+	<td>
+		<%= sales_return_entry.quantity %>
+	</td>
+
+	<td>
+		<%= print_money( sales_return_entry.reimburse_price_per_piece )%>
+	</td>
+
+	<td>
+		<%= print_money( sales_return_entry.total_reimburse_price )%> 
+	</td>
+	
+	
+	<% if not sales_return.is_confirmed? %>
+		<td>
+			<%= link_to root_url, :class =>"delete_entry", :style => "cursor:pointer; text-decoration:none;" do %>
+				<i class='icon-remove'></i>Delete
+			<% end %> 
+		</td>
+	
+		<td>
+			<%= link_to edit_sales_return_sales_return_entry_url(sales_return, sales_return_entry), 
+				:class =>"edit_entry modal-toggler", :style => "cursor:pointer; text-decoration:none;" do %>
+				<i class='icon-edit'></i>Edit
+			<% end %>
+		</td>
+	<% end %>
+</tr>

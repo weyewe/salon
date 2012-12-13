@@ -1,0 +1,91 @@
+<%= render :partial => "layouts/masthead" ,:locals => {
+	:title => "Employee Management",
+	:description => "Service Performed by #{@employee.name}"
+}%>
+
+<div id="content">
+
+	<div class="container">
+	 
+		<div class='row'>
+			<div class='span12'>
+				<form class="form-horizontal" id='service_searcher' action='<%= service_done_by_employee_url(@employee) %>'>
+				  <fieldset>
+				    <div class="control-group">
+				      <label class="control-label" for="service_period">Date Range:</label>
+				      <div class="controls">
+				        <div class="input-prepend">
+				          <span class="add-on"><i class="icon-calendar"></i></span><input type="text" name="service_period_range" id="service_period" />
+				        </div>
+				      </div>
+				    </div>
+				  </fieldset>
+				</form>
+			</div>
+		</div> <!-- END OF SEARCHER -->
+		
+		
+		
+		<div class="row"> 
+			<div class="span8"> 
+				 
+				<%= render :partial => "service_items/employee_performance_table" , :locals => {
+					:service_items => @service_items 
+				}%>
+				
+			</div> <!-- /.span8--> 
+			
+			<div class='span4'>
+			 
+				<%= render :partial => "service_items/employee_performance_summary", :locals => {
+					:service_items => @service_items , 
+					:commissions => @commissions 
+				} %>
+				
+			</div> <!-- Summary -->
+		</div> <!-- /.row -->
+		
+	
+	</div> <!-- /.container -->
+
+</div> <!-- /#content -->
+
+
+<% content_for :additional_js do %> 
+	<%= javascript_include_tag  'date', 'daterangepicker'  	%> 
+	<script type='text/javascript'>
+	
+		$(document).ready(function() {
+		  $("#service_period").daterangepicker({},function(start, end){
+				// alert("Banzaii!");
+				// show loading on the current search box
+				var $service_search_box_form = $("#service_searcher"); 
+				$service_search_box_form.spin("large", "black");
+				 
+				// show loading on the current table
+				var $employee_performance_table = $("#employee_performance_table");
+				$employee_performance_table.spin("large", "black");
+				
+				var $employee_performance_summary = $("#employee_performance_summary");
+				$employee_performance_summary.spin("large", "black");
+				
+				var get_url = $service_search_box_form.attr('action')
+				$.ajax({
+					url: get_url,
+					type: "GET",
+					data: $service_search_box_form.serialize(),
+					dataType: 'script',
+					success: function(response){ 
+						// it is live.. ajax-form class
+					}
+				});
+			});
+		});
+ 
+ 	</script>
+<% end %>
+
+
+<% content_for :additional_css do %> 
+  <%= stylesheet_link_tag "daterangepicker"  	%> 
+<% end %>

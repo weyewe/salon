@@ -1,0 +1,25 @@
+<% source = object.one_to_one_source %> 
+<% target = object.one_to_one_target %>
+<tr id="entry-<%= object.id %>">
+	<td><%= object.code %></td>
+	<td>
+		<b><%= source.quantity %>x</b> <%= source.item.name  %> <br />
+		Ready: <%= source.item.ready %>
+	</td>
+	<td>
+		<b><%= target.quantity %>x</b>  <%= target.item.name %><br />
+		Ready: <%= target.item.ready %>
+	</td>
+	<td>
+		<%= object.convert_stocks.where(:is_deleted => false ).count%>
+	</td>
+	
+	
+	<td>
+		<%= link_to new_stock_conversion_convert_stock_url(object) , :class => "new_entry" do %>
+			<i class="icon-plus"></i>Create
+		<% end %>
+	</td>
+
+	
+</tr>

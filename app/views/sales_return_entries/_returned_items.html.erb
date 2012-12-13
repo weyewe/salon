@@ -1,0 +1,24 @@
+<h2>Sales Return Details: <%= sales_return.code %></h2>
+<table class="table table-bordered table-striped table-highlight" id='purchased_items'>
+	<thead>
+		<tr>
+			<th> Item 	</th>
+			<th> Quantity </th>
+			<th> Unit Reimbursement  </th>
+			<th> Total Reimbursement </th>
+			<% if not sales_return.is_confirmed? %>
+				<th style='text-align:center;' colspan='2'>Action</th>
+			<% end %>
+		</tr>
+	</thead>
+	<tbody>
+		<% sales_return.active_sales_return_entries.each do |sales_return_entry| %>
+			<%= render :partial => 'sales_return_entries/sales_return/entry', :locals => {
+				:sales_return_entry => sales_return_entry ,
+				:sales_return => sales_return
+			}%>
+			
+		<% end %>
+		
+	</tbody>
+</table>

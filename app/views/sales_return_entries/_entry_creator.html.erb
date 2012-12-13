@@ -1,0 +1,15 @@
+
+
+<%= simple_form_for :sales_return_application, { url: generate_sales_return_entry_add_product_form_url, 
+			:html => {:id=>"add_product_trigger_form" } } do |f| %>
+  <%= f.input :search_item_id , :label => "Item"  %> 
+	<%=	 hidden_field_tag 'selected_item_id', '' %> 
+	<%=	 hidden_field_tag 'sales_return_id', "#{sales_return.id}" %> 
+	<%= hidden_field_tag 'search_sales_order_item_url', "#{search_sales_order_item_url(sales_return.sales_order_id)}"  %>
+<% end %>
+
+
+
+
+<div id='add_product_form_wrapper'> 
+</div>

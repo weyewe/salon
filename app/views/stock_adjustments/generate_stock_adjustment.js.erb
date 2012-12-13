@@ -1,0 +1,41 @@
+$(document).ready(function(){
+	var $form = $("#stock_adjustment_trigger_form");  
+	$form.spin(false);
+	
+	<% if @item.has_past_migration? %> 
+	
+		<% new_form = escape_javascript(  render :partial => "stock_adjustments/new_object_form", :locals => {
+	    :new_object => @new_object , 
+			:url => stock_adjustments_url ,
+			:item_id => @item.id,
+			:item => @item
+	  })%>
+
+		
+
+
+		if($("#new_object").length != 0 ){ 
+			$("#new_object").replaceWith("<%= new_form %>");
+		}else if( $('#new_object').length == 0 ){ 
+			$("#form_wrapper").append("<%= new_form %>"); 
+		} 
+
+		
+		
+		jQuery('.prevent_double_submit').preventDoubleSubmit();
+	<% else %>
+		$.msgbox("Belum ada migrasi untuk <%= @item.name %>. Silakan gunakan Stock Migration", 
+					{type: "error"});
+	<% end %> 
+	
+	<% item_info_table = escape_javascript(  render :partial => "stock_adjustments/item_info_table", :locals => {
+    :item =>  @item
+  }) %>
+	
+	
+	if($("#item_info").length != 0 ){ 
+		$("#item_info").replaceWith("<%= item_info_table %>");
+	}else if( $('#item_info').length == 0 ){ 
+		$("#item_info_wrapper").append("<%= item_info_table %>"); 
+	}
+});

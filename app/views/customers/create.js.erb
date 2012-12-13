@@ -1,0 +1,32 @@
+$(document).ready(function(){
+	 
+	
+	var $form = $('#new_object');
+	
+	$form.spin(false);
+	
+	<% new_form = escape_javascript(  render :partial => "customers/new_object_form", :locals => {
+    :new_object => @new_object , 
+		:url => customers_url,
+  })%>
+
+
+	$form.replaceWith('<%= new_form %>');
+
+	<% if @object.valid? %>
+		// show the growl. save. done. 
+		<%# new_entry = escape_javascript(  render :partial => "items/entry", :locals => {
+	    :object => @object  
+	  })%>
+		// $("#tableview tbody").prepend('<%#= new_entry %>');
+		
+		$.msgbox("Customer <b><%= @object.name %></b> is created.", 
+					{type: "info"});
+	<% else %>
+		 $.msgbox("Fail to create new item.", 
+					{type: "error"});
+	<% end %>
+	
+	// else, display error.. 
+	jQuery('.prevent_double_submit').preventDoubleSubmit();
+});

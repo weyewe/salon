@@ -1,0 +1,37 @@
+
+<tr id="entry-<%= object.id %>">
+	<td>
+		<%= "#{object.service.name }" %>
+	</td>
+	<td>
+		<%= print_date( object.confirmed_datetime.in_time_zone(LOCAL_TIME_ZONE) )  %>
+	</td>
+	<td>
+		<% employees = object.employees %>
+		<% if employees.length == 0 %>
+			N/A
+		<% else %>
+			<ul>
+				<% employees.each do |employee| %>
+					<li><%= employee.name %></li>
+				<% end %>
+			</ul>
+		<% end %>
+	</td>
+
+	<td>
+		<% items = object.items %>
+		<% if items.length == 0 %>
+			N/A
+		<% else %>
+			<ul>
+				<% items.each do |item| %>
+					<li><%= item.name %></li>
+				<% end %>
+			</ul>
+		<% end %>
+	</td>
+
+	 
+
+</tr>

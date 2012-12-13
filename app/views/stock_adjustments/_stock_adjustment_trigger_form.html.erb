@@ -1,0 +1,5 @@
+<%= simple_form_for :signin, { url: generate_stock_adjustment_url, 
+			:html => {:id=>"stock_adjustment_trigger_form" } } do |f| %>
+  <%= f.input :search_item_id  %> 
+	<%=	 hidden_field_tag 'selected_item_id', '' %> 
+<% end %>

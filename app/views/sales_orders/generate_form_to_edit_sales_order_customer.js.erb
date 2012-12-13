@@ -1,0 +1,35 @@
+
+$(document).ready(function() { 
+	
+	
+	<% new_form = escape_javascript(  render :partial => "sales_orders/edit_customer_form", :locals => {
+    :sales_order => @sales_order , 
+		:new_object => @sales_order, 
+		:url => update_sales_order_customer_url(@sales_order)  
+  })%> 
+
+$("#editEntry .modal-body").append('<%= new_form %>');
+
+
+
+	var $search_customer_box = $("#search_customer_id"); 
+
+	$search_customer_box.tokenInput( '<%= search_customer_url %>' , {
+		propertyToSearch: "name",
+		zindex : 9999, 
+		tokenLimit: 1, 
+		<%  if not @customer.nil? %>
+		prePopulate: [  
+				{id: <%= @customer.id %>, name: "<%= escape_javascript( @customer.name )%>"}, 
+		],
+		<% end %>
+		onAdd: function (item){ 
+		} ,
+		onDelete: function(item){
+		}
+	});
+	 
+
+
+
+});  

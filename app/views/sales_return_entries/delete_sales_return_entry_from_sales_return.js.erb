@@ -1,0 +1,18 @@
+$(document).ready(function(){
+	
+	var $row = $("#entry-<%= @sales_return_entry.id %>")
+	$row.spin(false); 
+	
+	$row.remove(); 
+	
+	$.msgbox("Berhasil menghapus item: <%= @sales_return_entry.sales_entry.item.name %>");
+	
+	 
+	
+	<% new_total_purchase  = escape_javascript(  render :partial => 'sales_return_entries/sales_return/total_return', :locals => { 
+		:sales_return => @sales_return 
+	} )%>
+	
+	$("#total_purchase").replaceWith('<%= new_total_purchase %>');
+	
+});

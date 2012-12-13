@@ -1,0 +1,2 @@
+module PurchaseReturnsHelper
+end

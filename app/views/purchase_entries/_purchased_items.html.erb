@@ -1,0 +1,23 @@
+<table class="table table-bordered table-striped table-highlight" id='purchased_items'>
+	<thead>
+		<tr>
+			<th> Item 	</th>
+			<th> Quantity </th>
+			<th> Unit Price  </th>
+			<th> Total Price </th>
+			<% if not purchase_order.is_confirmed? %>
+				<th style='text-align:center;' colspan='2'>Action</th>
+			<% end %>
+		</tr>
+	</thead>
+	<tbody>
+		<% purchase_order.active_purchase_entries.each do |purchase_entry| %>
+			<%= render :partial => 'purchase_entries/purchase_order/entry', :locals => {
+				:purchase_entry => purchase_entry ,
+				:purchase_order => purchase_order
+			}%>
+			
+		<% end %>
+		
+	</tbody>
+</table>

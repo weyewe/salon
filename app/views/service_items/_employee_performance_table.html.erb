@@ -1,0 +1,35 @@
+<table class="table table-bordered table-striped table-highlight" id='employee_performance_table'>
+	<thead>
+		<tr>
+			<th>Invoice Code</th>
+			<th>Date</th>
+			<th>Service</th>  
+			<th>Harga</th>  
+			<th>Komisi</th>
+		</tr>
+	</thead>
+	<tbody> 
+		<% service_items.each do |object| %>
+			<tr id="entry-<%= object.id %>">
+				<td>
+					<%= "#{object.sales_entry.sales_order.code}" %>
+				</td>
+				<td>
+					<%= print_date( object.created_at ) %>
+				</td>
+
+				<td>
+					<%= object.service.name  %>
+				</td>
+				
+				<td>
+					<%= print_money( object.sales_entry.total_sales_price)%>
+				</td>
+				<td>
+					<%=  print_money( object.service.commission_per_employee) %>
+				</td>
+
+			</tr>
+		<% end %>
+	</tbody>
+</table>

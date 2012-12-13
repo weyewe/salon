@@ -1,0 +1,17 @@
+$(document).ready(function(){
+	var $modal = $("#editEntry");
+	var $form = $("form", $modal );
+	$form.spin(false);
+	
+	
+	var $order_summary = $("#order_summary");
+	
+	<% new_summary = escape_javascript( render :partial => "sales_entries/sales_order_summary" , :locals => {
+		:sales_order => @sales_order
+	})%>
+	
+	$order_summary.replaceWith('<%= new_summary %>');
+	$modal.modal('hide'); 
+	$form.remove();
+	jQuery('.prevent_double_submit').preventDoubleSubmit(); 
+});

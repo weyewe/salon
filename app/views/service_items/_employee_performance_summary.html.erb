@@ -1,0 +1,25 @@
+<table class="table table-bordered table-striped table-highlight" id='employee_performance_summary'>
+	<thead>
+		<tr>
+			<th colspan='2' style='text-align:center;'>Summary</th> 
+		</tr>
+	</thead>
+	<tbody>  
+			<tr>
+				<td>
+					Total Service
+				</td>
+				<td>
+					<%= service_items.count %>
+				</td> 
+			</tr> 
+			<tr>
+				<td>
+					Total Komisi
+				</td>
+				<td>
+					<%= print_money(commissions) %>
+				</td> 
+			</tr>
+	</tbody>
+</table>

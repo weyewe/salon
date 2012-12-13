@@ -1,0 +1,7 @@
+
+<h5>
+	Purchase Return Summary:  <b><%#= stock_adjustment.code %></b>
+</h5>
+<%= render :partial => "purchase_returns/item_info_table", :locals => {
+  :item =>  item
+}%>

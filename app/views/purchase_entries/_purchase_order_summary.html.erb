@@ -1,0 +1,24 @@
+<table class="table table-bordered table-striped table-highlight" id='table_form'>
+	<thead>
+		<tr>
+			<th  style='text-align:center;'>Invoice Pembelian No.: <b><%= purchase_order.code %></b></th>  
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td> 
+			   Vendor:  
+						<span class="label label-success"><%= purchase_order.vendor.name %></span> 
+					
+					<% if not purchase_order.is_confirmed? %>
+						<%= link_to root_url, :class =>"edit_entry", :style => "cursor:pointer; text-decoration:none;" do %>
+							<i class='icon-edit'></i>Edit
+						<% end %>
+					<% end %>
+			</td>
+	 
+		</tr>
+		<tr>
+		</tr>
+	</tbody>
+</table>

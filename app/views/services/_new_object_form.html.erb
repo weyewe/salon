@@ -1,0 +1,39 @@
+
+
+<% if new_object.persisted? %>
+	<% id = 'edit_object'%>
+<% else %>
+	<% id = 'new_object'%>
+<% end %>
+
+ 
+<%= simple_form_for( new_object, :url => url,
+      :method => :post , 
+      :html => {:class => "form-horizontal prevent_double_submit ajax-form   no_content_form",
+        :id => "#{id}"}) do |f| %>
+
+	<%#= f.input :parent_id , :label => "Super Category" %>
+	
+	<%= f.input :name  , :input_html => {:class => "input-xlarge "}, 
+  :label => "Name" %>
+
+	<%= f.input :number_of_employee  , :input_html => {:class => "input-xlarge "}, 
+  :label => "Jumlah Karyawan", :hint => "Jumlah Karyawan yang dibutuhkan untuk service ini" , :as => :string%>
+
+	<%= f.input :recommended_selling_price  , :input_html => {:class => "input-xlarge "}, 
+  :label => "Harga Jual", :as => :string  %>
+
+	<%= f.input :commission_per_employee  , :input_html => {:class => "input-xlarge "}, 
+  :label => "Komisi Per karyawan", :as => :string  %>
+ 
+
+   
+
+  <div class="form-actions">
+		<% if new_object.persisted? %>
+			<%= f.button :submit , :class => "btn btn-primary", :value=> "Update Service" %>
+		<% else %>
+			<%= f.button :submit , :class => "btn btn-primary", :value=> "Create Service" %>
+		<% end %>
+  </div>
+<% end %>

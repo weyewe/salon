@@ -1,0 +1,76 @@
+<% entry_object = sales_entry.item %>
+<tr id='entry-<%= sales_entry.id %>'>
+	<td class='identifier'>
+		<%= entry_object.name %> 
+		
+		<% if sales_entry.is_service? %>
+			<% employees = sales_entry.service_item.employees%> 
+			<% if employees.length != 0 %>
+				<ul>
+					Karyawan:
+					<% employees.each do |employee| %>
+						<li><%= employee.name %></li>
+					<% end %>
+			 
+				</ul>
+			<% end %>
+			
+			<ul>
+				Kendaraan:
+				<% if sales_entry.service_item.vehicle.nil? %>
+					<li>N/A</li>
+				<% else %>
+					<li><%= sales_entry.service_item.vehicle.id_code %></li>
+				<% end %> 
+			</ul>
+			
+			<ul>
+				Item:
+				<% if sales_entry.service_item.replacement_items.length == 0  %>
+					<li>N/A</li>
+				<% else %>
+					<% sales_entry.service_item.items.each do |item| %> 
+						<li><%= item.name  %></li>
+					<% end %>
+				<% end %>
+				
+				
+				<% if not sales_order.is_confirmed? %>
+					<%= link_to generate_form_to_add_service_sales_entry_details_url(  sales_entry), 
+						:class =>"edit_entry modal-toggler", :style => "cursor:pointer; text-decoration:none;" do %>
+						<i class='icon-edit'></i>Edit
+					<% end %>
+				<% end %>
+			</ul>
+		<% end %>
+		
+	</td>
+
+	<td>
+		<%= sales_entry.quantity %>
+	</td>
+
+	<td>
+		<%= print_money( sales_entry.selling_price_per_piece )%>
+	</td>
+
+	<td>
+		<%= print_money( sales_entry.total_price )%> 
+	</td>
+	
+	
+	<% if not sales_order.is_confirmed? %>
+		<td>
+			<%= link_to root_url, :class =>"delete_entry", :style => "cursor:pointer; text-decoration:none;" do %>
+				<i class='icon-remove'></i>Delete
+			<% end %> 
+		</td>
+	
+		<td>
+			<%= link_to edit_sales_order_sales_entry_url(sales_order, sales_entry), 
+				:class =>"edit_entry modal-toggler", :style => "cursor:pointer; text-decoration:none;" do %>
+				<i class='icon-edit'></i>Edit
+			<% end %>
+		</td>
+	<% end %>
+</tr>

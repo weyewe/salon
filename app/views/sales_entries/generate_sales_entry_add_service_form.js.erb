@@ -1,0 +1,37 @@
+$(document).ready(function(){
+	var $form = $("#add_service_trigger_form");
+	
+	$form.spin(false);
+	
+	
+	
+	<% new_form = escape_javascript(  render :partial => "sales_entries/sales_order/add_service_form", :locals => {
+    :new_object => @new_object , 
+		:url => create_service_sales_entry_url(@sales_order) ,
+		:service => @service, 
+		:employees =>  @employees
+  })%>
+
+
+	var $add_service_form=  $("#add_service_form");
+	var $form_wrapper = $("#add_service_form_wrapper");
+	
+	if($add_service_form.length == 0 ){
+		$form_wrapper.append('<%= new_form %>');
+	}else {
+		$add_service_form.replaceWith('<%= new_form %>');
+	}
+	
+	// var $search_vehicle_box = $("#search_vehicle_id"); 
+	// 
+	// $search_vehicle_box.tokenInput( '<%= search_vehicle_url %>' , {
+	// 	propertyToSearch: "name",
+	// 	tokenLimit: 1, 
+	// 	onAdd: function (item){ 
+	// 	} ,
+	// 	onDelete: function(item){
+	// 	}
+	// });
+
+	jQuery('.prevent_double_submit').preventDoubleSubmit();
+});

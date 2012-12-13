@@ -1,0 +1,57 @@
+<% source = stock_conversion.one_to_one_source %> 
+<% target = stock_conversion.one_to_one_target %>
+ 
+
+
+<% if new_object.persisted? %>
+	<% id = 'edit_object'%>
+<% else %>
+	<% id = 'new_object'%>
+<% end %>
+
+
+<%= simple_form_for( new_object, :url => url,
+      :method => :post , 
+      :html => {:class => "form-horizontal prevent_double_submit ajax-form   no_content_form",
+        :id => "#{id}"}) do |f| %>
+  
+				<table class="table table-bordered table-striped table-highlight">
+
+					<tbody> 
+						<tr>
+							<td>
+								<b>Sumber</b> 
+									<br />(ready: <%= source.item.ready %>)
+							</td>
+							<td>
+								<b><%= source.quantity %></b>x <%= source.item.name %></b> 
+							</td>
+						</tr>
+
+						<tr>
+							<td>
+								<b>Target </b> 
+									<br />(ready: <%= target.item.ready %>)
+							</td>
+							<td>
+								<b><%= target.quantity %></b>x <%= target.item.name %></b>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				
+
+	<%= f.input :source_quantity  , :input_html => {:class => "input-xlarge "}, 
+ 		 :label => "Jumlah Konversi",
+		 	:hint =>  "Setidaknya 1, dan tidak boleh lebih dari #{source.item.ready}"%> 
+
+
+  <div class="form-actions">
+	
+		<% if new_object.persisted? %>
+			<%= f.button :submit , :class => "btn btn-primary", :value=> "Update Convert Stock" %>
+		<% else %>
+			<%= f.button :submit , :class => "btn btn-primary", :value=> "Create Convert Stock" %>
+		<% end %>
+   </div>
+<% end %>

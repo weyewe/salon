@@ -1,0 +1,30 @@
+<% if new_object.persisted? %>
+	<% id = 'edit_object'%>
+<% else %>
+	<% id = 'new_object'%>
+<% end %>
+
+<%= simple_form_for( new_object, :url => url,
+      :method => :post , 
+      :html => {:class => "form-horizontal prevent_double_submit ajax-form   no_content_form",
+        :id => "#{id}"}) do |f| %>
+
+	<%#= f.input :parent_id , :label => "Super Category" %>
+	
+	<%= f.input :parent_id, :hint => "Parent Category", :label => "Parent Category" do %>
+     <%= f.select :parent_id, 
+         Category.all_selectable_categories %>
+   <% end %>
+
+  <%= f.input :name  , :input_html => {:class => "input-xlarge "}, 
+  :label => "Name" %>
+
+
+  <div class="form-actions">
+		<% if new_object.persisted? %>
+			<%= f.button :submit , :class => "btn btn-primary", :value=> "Update Category" %>
+		<% else %>
+			<%= f.button :submit , :class => "btn btn-primary", :value=> "Create Category " %>
+		<% end %> 
+  </div>
+<% end %>

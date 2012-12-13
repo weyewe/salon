@@ -1,0 +1,16 @@
+$(document).ready(function(){
+	
+	var $row = $("#entry-<%= @purchase_entry.id %>")
+	$row.spin(false); 
+	
+	$row.remove(); 
+	
+	$.msgbox("Berhasil menghapus item: <%= @purchase_entry.item.name %>");
+	
+	<% new_total_purchase  = escape_javascript(  render :partial => 'purchase_entries/purchase_order/total_purchase', :locals => { 
+		:purchase_order => @purchase_order 
+	} )%>
+	
+	$("#total_purchase").replaceWith('<%= new_total_purchase %>');
+	
+});

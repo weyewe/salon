@@ -1,0 +1,22 @@
+<table class="table table-bordered table-striped table-highlight" id='tableview'>
+	<thead>
+		<tr>
+			<th colspan='2' style='text-align:center;'>Pending Confirmation: <%= @pending_confirmation_purchase_orders.length %></th>  
+		</tr>
+	</thead>
+	<tbody>
+		
+		<% @pending_confirmation_purchase_orders.each do |purchase_order| %>
+			<tr>
+				<td> 
+					<%= link_to purchase_order.code ,new_purchase_order_purchase_entry_url(purchase_order)%>
+				</td>
+				<td> 
+					<%= print_date(purchase_order.created_at )%>
+				</td>
+			</tr>
+		<% end %>
+		
+	 
+	</tbody>
+</table>

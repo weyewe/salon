@@ -1,0 +1,33 @@
+<tr id="entry-<%= object.id %>">
+	<td>
+		<%= "#{object.code}" %>
+	</td>
+	<td>
+		<%= "#{object.name}" %>
+	</td>
+	
+	<td>
+		<%= object.mobile_phone %>
+	</td>
+	
+	<td>
+		<%= object.address %>
+	</td>
+	
+	<td>
+		<%= link_to object.confirmed_services.count, service_done_by_employee_url( object )    %>
+	</td>
+	
+	<td>
+		<%= link_to root_url, :class =>"delete_entry", :style => "cursor:pointer; text-decoration:none;" do %>
+			<i class='icon-remove'></i>Delete
+		<% end %> 
+	</td>
+
+	<td>
+		<%= link_to edit_employee_url(object), 
+			:class =>"edit_entry modal-toggler", :style => "cursor:pointer; text-decoration:none;" do %>
+			<i class='icon-edit'></i>Edit
+		<% end %>
+	</td>
+</tr>

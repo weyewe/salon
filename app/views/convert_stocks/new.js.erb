@@ -1,0 +1,12 @@
+$(document).ready(function(){
+	  
+		<% new_form = escape_javascript(  render :partial => "convert_stocks/new_object_form", :locals => {
+	    :new_object => @new_object , 
+			:url => stock_conversion_convert_stocks_url(@stock_conversion)   ,
+			:stock_conversion => @stock_conversion
+	  })%>
+ 
+	$("#newEntry .modal-body").append('<%= new_form %>'); 
+		
+	jQuery('.prevent_double_submit').preventDoubleSubmit();
+});

@@ -1,0 +1,30 @@
+$(document).ready(function(){
+	// copy the protocol to hide the loader + modal
+	var $modal = $("#editEntry");
+	var $form = $("#add_service_details_form", $modal );
+	$form.spin(false);
+	
+	// if save is successful
+	// hide the modal
+	// replace the row 
+	
+	// if it is not successful 
+	// hacking case.. fuck it.. 
+	
+	$form.remove(); 
+
+	<% new_entry  = escape_javascript(  render :partial => 'sales_entries/sales_order/entry', :locals => {
+		:sales_entry => @sales_entry ,
+		:sales_order => @sales_order 
+	} )%>
+
+	$("#entry-<%= @sales_entry.id %>").replaceWith('<%= new_entry %>') 
+
+	$.msgbox("Berhasil update service details: <%= @service.name %>", 
+				{type: "info"});
+
+	
+	$modal.modal('hide');
+	
+	
+});

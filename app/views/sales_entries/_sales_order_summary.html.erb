@@ -1,0 +1,36 @@
+<table class="table table-bordered table-striped table-highlight" id='order_summary'>
+	<thead>
+		<tr>
+			<th colspan='2' style='text-align:center;'>Invoice No.: <b><%= sales_order.code %></b></th>  
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td> 
+			   Customer: 
+					<% if sales_order.customer.nil? %>
+						<span class="label label-important">N/A</span>
+					<% else %>
+						<span class="label label-success"><%= sales_order.customer.name %></span>
+					<% end %>
+					
+					<% if not sales_order.is_confirmed? %>
+					
+						<br />
+						<%= link_to generate_form_to_edit_sales_order_customer_url(sales_order), 
+								:class =>"edit_entry", :style => "cursor:pointer; text-decoration:none;" do %>
+							<i class='icon-edit'></i>Edit
+						<% end %>
+					<% end %>
+			</td>
+			<td> 
+				
+				<%= link_to new_vehicle_from_sales_order_url, :class => "new_entry btn btn-primary" do %>
+					<i class="icon-plus"></i>Kendaraan Baru
+				<% end %>
+			</td>
+		</tr>
+		<tr>
+		</tr>
+	</tbody>
+</table>

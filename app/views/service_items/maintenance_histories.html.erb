@@ -1,0 +1,64 @@
+<%= render :partial => "layouts/masthead" ,:locals => {
+	:title => "Vehicle",
+	:description => "Vehicle Maintenance History"
+}%>
+
+<%= create_breadcrumb(@breadcrumbs).html_safe %>
+
+<div id="content">
+
+	<div class="container">
+		
+		
+		<div class="row">
+			
+			<div class="span8"> 
+				 
+				
+				<%#= render :partial => "vendors/new_object_form", :locals => {
+					:new_object => @new_object , 
+					:url => vendors_url
+				}%>
+
+				<table class="table table-bordered table-striped table-highlight" id='tableview'>
+					<thead>
+						<tr>
+							<th>Service</th>
+							<th>Tanggal</th>
+							<th>Pelaksana</th>
+							<th>Item</th>   
+						</tr>
+					</thead>
+					<tbody> 
+						<% @service_items.each do |object| %>
+							<%= render :partial =>  'service_items/maintenance_history_entry', :locals => {
+								:object => object 
+							} %> 
+						<% end %>
+					</tbody>
+				</table>
+
+				
+				
+				
+			 
+				
+			</div> <!-- /.span8 -->
+			
+			
+			<div class="span4">
+				
+				Search Vendor <hr />
+				All Vendors <hr /> 
+				
+						
+				
+			</div> <!-- /.span4 -->
+			
+		</div> <!-- /.row -->
+		
+	
+	</div> <!-- /.container -->
+
+</div> <!-- /#content -->
+ 

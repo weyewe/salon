@@ -1,0 +1,116 @@
+<%= render :partial => "layouts/masthead" ,:locals => {
+	:title => "Invoice",
+	:description => "Create invoice: for registered customer or unregistered"
+}%>
+
+<div id="content">
+
+	<div class="container">
+		
+		 
+		
+		<div class="row">
+			 
+			<div class="span8">
+				
+				<% if not @has_no_errors.nil? and not @has_no_errors  %>
+					<%= render :partial => "layouts/errors", :locals => { 
+						:new_object => @new_object 
+					}%>
+				<% end %>
+				
+				
+
+				<%= render :partial => "sales_returns/new_object_form", :locals => {
+					:new_object => @new_object , 
+					:url => sales_returns_url
+				}%>
+				
+				<%= render :partial => "sales_returns/pending_sales_returns" , :locals => {
+					:pending_sales_returns => @pending_confirmation_sales_returns
+				}%>
+			 
+			</div> <!-- /.span8 --> 
+			
+			
+			
+			<div class='span4'>
+				Search Customer<hr />
+				All Customer<hr />
+				
+				<h3><%= @confirmed_sales_returns.count %> Confirmed Sales Return Terbaru </h3>
+
+				<table class="table table-bordered table-striped table-highlight" >
+					<thead>
+						<tr>
+							<th>
+								Sales Return No
+							</th> 
+							<th>
+								Pengembalian Uang
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<% @confirmed_sales_returns.each do |sales_return| %>
+							<tr>
+								<td><%= link_to sales_return.code, new_sales_return_sales_return_entry_url(sales_return) %></td>
+								<td><%= print_money( sales_return.total_amount_to_be_reimbursed) %></td>
+							</tr>
+						<% end %>
+
+					</tbody>
+				</table>
+
+			</div><!-- /.span4 --> 
+		</div> <!-- /.row -->
+		
+		 
+	
+	</div> <!-- /.container -->
+
+</div> <!-- /#content -->
+
+
+<div class="modal fade hide" id="myModal">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">×</button>
+    <h3>Modal header</h3>
+  </div>
+  <div class="modal-body">
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+  </div>
+  <div class="modal-footer">
+    <a href="javascript:;" class="btn" data-dismiss="modal">Close</a>
+    <a href="javascript:;" class="btn btn-primary">Save changes</a>
+  </div>
+</div>
+
+
+
+<% content_for :additional_js do %> 
+  <%= javascript_include_tag "jquery.tokeninput" 	%> 
+	<script type="text/javascript"> 
+	
+  $(document).ready(function() { 
+			var $search_sales_order_box = $("#search_sales_order_id"); 
+			
+			$search_sales_order_box.tokenInput( '<%= search_sales_order_url %>' , {
+				propertyToSearch: "name",
+				tokenLimit: 1, 
+				onAdd: function (item){ 
+				} ,
+				onDelete: function(item){
+				}
+			});
+		 
+			
+			
+  });
+
+  </script>
+<% end %>
+
+<% content_for :additional_css do %> 
+  <%= stylesheet_link_tag "token-input", "token-input-facebook" 	%> 
+<% end %>

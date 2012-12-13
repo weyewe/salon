@@ -1,0 +1,8 @@
+<%= simple_form_for :purchase_entry, { url: generate_purchase_entry_add_product_form_url, 
+			:html => {:id=>"add_product_trigger_form" } } do |f| %>
+  <%= f.input :search_item_id , :label => "Item"  %> 
+	<%=	 hidden_field_tag 'selected_item_id', '' %> 
+	<%=	 hidden_field_tag 'purchase_order_id', "#{purchase_order.id}" %> 
+	<%= hidden_field_tag 'search_item_url', "#{search_item_url}"  %>
+<% end %>
+

@@ -1,0 +1,45 @@
+<% service_item = new_object.service_item %>
+<%= simple_form_for( new_object, :url => url,
+      :method => :post , 
+      :html => {:class => " prevent_double_submit ajax-form",
+        :id => "edit_service_form"}) do |f| %> 
+	<%=	 hidden_field_tag 'service_id', "#{service.id}" %> 
+
+			<table class="table table-bordered table-striped table-highlight">
+				<thead>
+					<tr>
+						<th style='text-align:center;'><%= service.name  %></th>  
+					</tr>
+				</thead>
+				<tbody>
+				 
+					<tr>
+						<td>
+							<div class="control-group string optional">
+								<label class="string optional control-label" for="employee_id">Staff</label>
+								<div class="controls">
+									<%= select_tag 'employee_id', 
+										options_for_select(employees.collect{ |e| [e.name, e.id] },
+										:selected => service_item.selected_employees_id_list ),
+										:multiple => true  %>
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td> 
+								<%= f.input :selling_price_per_piece ,
+											:label =>"Biaya Service", 
+											:hint => "Recommended a selling price: #{print_money(service.recommended_selling_price)}." + 
+															"<br />"+ 
+															"Masukkan angka tanpa tanda baca, seperti <b>200000</b>.",  
+											:input_html => { :value => "#{ new_object.total_sales_price.to_i }" },
+											:as => :string %> 
+						</td>
+					</tr>
+					<tr>
+						<td style='text-align:center;'><%= f.submit  "Update Service", :class =>"btn" %></td>
+					</tr>
+				</tbody>
+			</table> 
+<% end %>

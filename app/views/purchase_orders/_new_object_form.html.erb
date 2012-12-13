@@ -1,0 +1,25 @@
+<%= simple_form_for( new_object, :url => url,
+      :method => :post , 
+      :html => {:class => " prevent_double_submit",
+        :id => "new_object"}) do |f| %> 
+			<table class="table table-bordered table-striped table-highlight" id='tableview'>
+				<thead>
+					<tr>
+						<th   style='text-align:center;'>New Purchase</th>  
+					</tr>
+				</thead>
+				<tbody>
+					<tr style='text-align:center;'>
+						<td> 
+						  	<%= f.input :vendor_id, :input_html => { :class => 'search_customer', :id => "search_vendor_id" }  ,
+											:label => "Vendor" , :hint => "Pilih vendor", :as => :string  %> 
+						</td> 
+					</tr>
+					<tr>
+						<td colspan='2' style='text-align:center;'>
+							<%= f.submit  "Confirm Purchase Invoice Details", :class =>"btn" %>
+						</td>
+					</tr>
+				</tbody>
+			</table> 
+<% end %>

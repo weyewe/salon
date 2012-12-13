@@ -1,0 +1,41 @@
+<h3>Pending Confirmation: <%= pending_sales_returns.length %></h3>
+
+<table class="table table-bordered table-striped table-highlight" id='tableview'>
+	<thead>
+		<tr>
+			<th>
+				Sales Return
+			</th>
+			<th>
+				Sales Invoice
+			</th>
+			<th>
+				Tanggal
+			</th>
+			<th>
+				Jumlah
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		
+		<% pending_sales_returns.each do |sales_return| %>
+			<tr>
+				<td> 
+					<%= link_to sales_return.code , new_sales_return_sales_return_entry_url(sales_return)%>
+				</td>
+				<td> 
+					<%=  sales_return.sales_order.code %>
+				</td>
+				<td> 
+					<%= print_date(sales_return.created_at )%>
+				</td>
+				<td>
+					<%= print_money( sales_return.total_amount_to_be_reimbursed ) %>
+				</td>
+			</tr>
+		<% end %>
+		
+	 
+	</tbody>
+</table>

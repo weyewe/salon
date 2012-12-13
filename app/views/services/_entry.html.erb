@@ -1,0 +1,30 @@
+<tr id="entry-<%= object.id %>">
+	<td>
+		<%= object.name %>
+	</td>
+	
+	<td>
+		<%= object.number_of_employee%>
+	</td>
+	
+	<td>
+		<%= print_money( object.recommended_selling_price ) %>
+	</td>
+	<td>
+		<%= print_money( object.commission_per_employee ) %>
+	</td>
+	
+	<td>
+		<%= link_to root_url, :class =>"delete_entry", :style => "cursor:pointer; text-decoration:none;" do %>
+			<i class='icon-remove'></i>Delete
+		<% end %> 
+	</td>
+
+	<td>
+		<%= link_to edit_service_url(object), 
+			:class =>"edit_entry modal-toggler", :style => "cursor:pointer; text-decoration:none;" do %>
+			<i class='icon-edit'></i>Edit
+		<% end %>
+	</td>
+</tr>
+

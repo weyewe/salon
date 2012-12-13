@@ -1,0 +1,83 @@
+<%= render :partial => "layouts/masthead" ,:locals => {
+	:title => "Purchase Invoice",
+	:description => "Create purchase invoice:  registered vendor"
+}%>
+
+<div id="content">
+
+	<div class="container">
+		
+		 
+		
+		<div class="row">
+			 
+			<div class="span8">
+				
+				<% if not @has_no_errors.nil? and not @has_no_errors  %>
+					<%= render :partial => "layouts/errors", :locals => { 
+						:new_object => @new_object 
+					}%>
+				<% end %>
+				
+				
+
+				<%= render :partial => "purchase_orders/new_object_form", :locals => {
+					:new_object => @new_object , 
+					:url => purchase_orders_url
+				}%>
+				<%= render :partial => "purchase_orders/purchase_order_statistic" %>
+			 
+			</div> <!-- /.span8 --> 
+			
+			<div class='span4'>
+				Search Purchase Invoice <hr />
+				All Purchase Invoices <hr />  
+			</div>
+		</div> <!-- /.row -->
+		
+		 
+	</div> <!-- /.container -->
+
+</div> <!-- /#content -->
+
+
+<div class="modal fade hide" id="myModal">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">×</button>
+    <h3>Modal header</h3>
+  </div>
+  <div class="modal-body">
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+  </div>
+  <div class="modal-footer">
+    <a href="javascript:;" class="btn" data-dismiss="modal">Close</a>
+    <a href="javascript:;" class="btn btn-primary">Save changes</a>
+  </div>
+</div>
+
+
+
+<% content_for :additional_js do %> 
+  <%= javascript_include_tag "jquery.tokeninput" 	%> 
+	<script type="text/javascript"> 
+	
+  $(document).ready(function() { 
+			var $search_vendor_box = $("#search_vendor_id"); 
+			
+			$search_vendor_box.tokenInput( '<%= search_vendor_url %>' , {
+				propertyToSearch: "name",
+				tokenLimit: 1, 
+				onAdd: function (item){ 
+				} ,
+				onDelete: function(item){
+				}
+			}); 
+			  
+  });
+
+  </script>
+<% end %>
+
+<% content_for :additional_css do %> 
+  <%= stylesheet_link_tag "token-input", "token-input-facebook" 	%> 
+<% end %>

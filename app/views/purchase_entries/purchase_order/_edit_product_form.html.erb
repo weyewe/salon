@@ -1,0 +1,35 @@
+<%= simple_form_for( new_object, :url => url,
+      :method => :post , 
+      :html => {:class => " prevent_double_submit ajax-form",
+        :id => "edit_product_form"}) do |f| %> 
+	<%=	 hidden_field_tag 'item_id', "#{item.id}" %> 
+
+			<table class="table table-bordered table-striped table-highlight">
+				<thead>
+					<tr>
+						<th style='text-align:center;'><%= item.name  %></th>  
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td> 
+						  	<%= f.input :quantity,  
+											:label => "Quantity" , :hint => "At least it should be 1. Ready stock: #{item.ready}", :as => :string  %> 
+						</td>
+						
+					</tr>
+					<tr>
+						<td> 
+								<%= f.input :price_per_piece ,
+											:label =>"Harga Satuan",  
+											:as => :string %>
+			 
+							
+						</td>
+					</tr>
+					<tr>
+						<td style='text-align:center;'><%= f.submit  "Update Product", :class =>"btn" %></td>
+					</tr>
+				</tbody>
+			</table> 
+<% end %>

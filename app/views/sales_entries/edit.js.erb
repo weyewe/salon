@@ -1,0 +1,28 @@
+$(document).ready(function(){
+	 
+	
+	<% if @sales_entry.is_product? %> 
+		<% new_form = escape_javascript(  render :partial => "sales_entries/sales_order/edit_product_form", :locals => {
+	    :new_object => @sales_entry , 
+			:url => update_sales_entry_url(@sales_order, @sales_entry) ,
+			:item => @item
+	  })%>
+ 	<% elsif @sales_entry.is_service? %>
+
+	// :new_object => @new_object , 
+	// :url => create_service_sales_entry_url(@sales_order) ,
+	// :service => @service, 
+	// :employees =>  @employees
+	
+	
+		<% new_form = escape_javascript(  render :partial => "sales_entries/sales_order/edit_service_form", :locals => {
+	    :new_object => @sales_entry , 
+			:url => update_sales_entry_service_url(@sales_order, @sales_entry) ,
+			:service => @sales_entry.service_item.service,
+			:employees => Employee.active_employees
+	  })%>
+	<% end %>
+	$("#editEntry .modal-body").append('<%= new_form %>');
+	
+	jQuery('.prevent_double_submit').preventDoubleSubmit();
+});

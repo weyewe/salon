@@ -1,0 +1,67 @@
+$(document).ready(function(){
+	// remove the spin
+	
+	var $modal = $("#editEntry");
+	var $form = $("form", $modal );
+	$form.spin(false); 
+	
+	// if update is successful
+		// remove the form 
+		// hide the modal 
+		// update the row entry 
+	// else
+		// replace the form with the faulty one 
+		// show all the error 
+	
+	
+		<% if   @has_no_errors  %> 
+			// clean the add product form
+			$form.remove(); 
+
+			<% new_entry  = escape_javascript( render :partial =>  'vehicles/entry', :locals => {
+				:object => @vehicle 
+			} )%>
+
+			$("#entry-<%= @vehicle.id %>").replaceWith('<%= new_entry %>') 
+
+			$.msgbox("Berhasil update vehicle: <%= @vehicle.id_code %>", 
+						{type: "info"});
+
+			
+			$modal.modal('hide'); 
+
+
+		<% elsif  not @has_no_errors %> 
+			<% new_form = escape_javascript(   render :partial => "vehicles/new_object_form", :locals => {
+		    :new_object => @vehicle , 
+				:url => update_vehicle_url(@vehicle)  
+		  })%>
+			//replace the form, show the edit
+			$form.replaceWith("<%= new_form %>"); 
+
+			$.msgbox("Error dalam update vehicle: <%= @vendor.id_code %>", 
+						{type: "error"});
+			
+			var search_customer_url = '<%= search_customer_url %>'; 
+			var $search_customer_box = $("#vehicle_customer_id");
+		  $search_customer_box.tokenInput( search_customer_url , {
+				propertyToSearch: "name",
+				tokenLimit: 1, 
+				onAdd: function (item) {
+
+				} ,
+				onDelete: function(item){
+				},
+				zindex: 9999,
+				prePopulate:   	[
+					<% if not @vehicle.customer_id.nil? %> 
+						{id: <%= @vehicle.customer_id  %>, name: '<%= @vehicle.customer.name %>'}
+					<% end %>
+				]
+			});
+		<% end %>
+
+
+
+		jQuery('.prevent_double_submit').preventDoubleSubmit(); 
+});

@@ -1,0 +1,23 @@
+<table class="table table-bordered table-striped" id='action_button'> 
+	<tbody>
+		<tr>
+			<td style='text-align:center;'>
+				<%= link_to "Confirm", confirm_sales_order_url(sales_order), :class => "btn btn btn-primary", :id => "confirm" %> 
+			</td>
+			<td style='text-align:center;'>
+				<%= link_to "Delete", '#', :class => "btn btn btn-tertiary", :id => "delete" %>  
+			</td> 
+		</tr>
+ 
+	</tbody>
+</table>
+
+<div class="hidden" id="confirm_order">
+  <%= form_for SalesEntry.new, :url => confirm_sales_order_url(sales_order)  do |f| %> 
+  <% end %>
+</div>
+
+<div class="hidden" id="delete_order">
+  <%= form_for SalesEntry.new, :url => delete_sales_order_url(sales_order)  do |f| %> 
+  <% end %>
+</div>

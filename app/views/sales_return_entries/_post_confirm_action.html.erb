@@ -1,0 +1,16 @@
+<table class="table table-bordered table-striped" id='action_button'> 
+	<tbody>
+		<tr>
+			<td style='text-align:center;'>
+					<a  class="btn btn btn-primary">Confirmed</a>	 	
+			</td> 
+			
+			<td style='text-align:center;'>
+				<%= link_to "Print Invoice", 
+							print_sales_return_url(sales_return, :format => :pdf), 
+							:class => "btn btn btn-tertiary"  %>  
+			</td>
+		</tr>
+ 
+	</tbody>
+</table>

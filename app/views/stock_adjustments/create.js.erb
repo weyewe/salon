@@ -1,0 +1,55 @@
+$(document).ready(function(){
+	
+	// if category creation is successful, append that category
+	// show growl notification 
+	
+	var $form = $('#new_object'); 
+	$form.spin(false);
+	
+	 
+	<% if @object.valid? %>
+	 
+		
+		
+		// refresh the search  
+		$("#signin_search_item_id").tokenInput("clear");
+		
+		// remove the display table 
+		$("#item_info").remove(); 
+		
+		// remove the form for stock entry 
+		$form.remove(); 
+		
+		// append the new stock migration into the last created stock migration. Just in case if he wants to edit
+		
+ 
+		<% migration_summary_table = escape_javascript(  render :partial => "stock_adjustments/adjustment_summary", :locals => {
+	    :item =>  @item,
+			:object => @object ,
+			:stock_adjustment => @stock_adjustment
+	  }) %>
+		
+		$.msgbox("<%= migration_summary_table  %>", 
+					{type: "info"});
+		
+					
+	<% else %>
+	
+	
+		<% new_form = escape_javascript(  render :partial => "stock_adjustments/new_object_form", :locals => {
+	    :new_object => @new_object , 
+			:url => stock_adjustments_url ,
+			:item_id => @item.id,
+			:item => @item
+	  })%>
+	
+	 
+		$form.replaceWith('<%= new_form  %>');
+	
+		$.msgbox("Fail to create adjustment.", 
+					{type: "error"});
+	<% end %>
+	
+	// else, display error.. 
+	jQuery('.prevent_double_submit').preventDoubleSubmit();
+});

@@ -1,0 +1,17 @@
+<%= simple_form_for( new_object, :url => url,
+      :method => :post , 
+      :html => {:class => "form-horizontal prevent_double_submit ajax-form   no_content_form",
+        :id => "new_object"}) do |f| %>
+
+	<%#= f.input :parent_id , :label => "Super Category" %>
+ 	
+
+ 	<%= hidden_field_tag 'item_id', "#{item_id}"%>
+	<%= f.input :quantity , :label => "Quantity untuk dikembalikan", 
+	 			:hint => "Jumlah Ready: #{item.ready}"   %> 
+
+  <div class="form-actions">
+    <%= f.button :submit , :class => "btn btn-primary", :value=> "Create Purchase Return" %>
+  </div>
+<% end %>
+

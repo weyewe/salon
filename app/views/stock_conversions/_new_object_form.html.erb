@@ -1,0 +1,30 @@
+<%= simple_form_for :stock_conversion, { url: url, 
+			:html => {:id=>"stock_conversion_form" ,
+							:class => ' prevent_double_submit ajax-form   no_content_form'} } do |f| %>
+  <%= f.input :source_item_id , :label => "Source Item"  %> 
+		<% new_object.errors[:source_item_id].each do |message| %>
+			<span style="color:red;"><%= message %></span> <br />
+		<% end %> 
+		
+	<%= f.input :target_item_id , :label => "Target Conversion Item"  %> 
+	<% new_object.errors[:target_item_id].each do |message| %>
+		<span style="color:red;"><%= message %></span> <br />
+	<% end %>
+	
+	<%= f.input :target_quantity , :label => "Target Quantity" ,
+	 		:hint => "Contoh: 1 Shell 4Liter di konversi menjadi <b>4</b> Shell 1Liter"%>    
+
+			<% new_object.errors[:target_quantity].each do |message| %>
+				<span style="color:red;"><%= message %></span> <br />
+			<% end %>
+			
+	<%= hidden_field_tag 'search_item_url', "#{search_item_url}"  %>
+	
+	
+	 
+  <div class="form-actions">
+		<%= f.button :submit , :class => "btn btn-primary", :value=> "Create Stock Conversion" %>
+  </div>
+		
+<% end %>
+

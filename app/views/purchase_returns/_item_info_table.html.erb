@@ -1,0 +1,27 @@
+<table class="table table-bordered table-striped table-highlight" id='item_info'>
+	<thead>
+		<tr>
+			<th colspan='2' style='text-align:center;'>Item Info</th> 
+		</tr>
+	</thead>
+	<tbody>
+	 	<tr>
+			<td>Name</td>
+			<td><%= item.name %></td>
+		</tr>
+		<tr>
+			<td>Ready Stock</td>
+			<td><%= item.ready %></td>
+		</tr>
+		
+		<tr>
+			<td>Scrap Stock</td>
+			<td><%= item.scrap %></td>
+		</tr>
+		
+		<tr>
+			<td>Average Price</td>
+			<td><%= print_money( item.average_cost )%></td>
+		</tr> 
+	</tbody>
+</table>

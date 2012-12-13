@@ -1,0 +1,76 @@
+<% service_item = new_object.service_item %> 
+<% replacement_items = service_item.replacement_items %>
+
+<%= simple_form_for( new_object, :url => url,
+      :method => :post , 
+      :html => {:class => " prevent_double_submit ajax-form",
+        :id => "add_service_details_form"}) do |f| %> 
+	<%=	 hidden_field_tag 'service_id', "#{service.id}" %> 
+
+			<table class="table table-bordered table-striped table-highlight">
+				<thead>
+					<tr>
+						<th style='text-align:center;'>Service Details for: <%= service.name  %></th>  
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+							<div class="control-group string optional">
+								<label class="string optional control-label" for="service_details_search_vehicle_id">Vehicle</label>
+								<div class="controls">
+									<%= text_field_tag 'service_details_search_vehicle_id' %>
+								</div>
+							</div>
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<div class="control-group string optional">
+								<label class="string optional control-label" for="service_details_search_item_id">Items</label>
+								<div class="controls">
+									<%= text_field_tag 'service_details_search_item_id' %>
+								</div>
+							</div>
+						</td>
+					</tr> 
+					
+			 
+					
+					<tr>
+						<td style='text-align:center;'><%= f.submit  "Save Service Details", :class =>"btn" %></td>
+					</tr>
+				</tbody>
+			</table> 
+<% end %>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	
+	 $("#service_details_search_vehicle_id").tokenInput('<%=	search_vehicle_url %>', {
+		prePopulate:   	[
+				<% if not service_item.vehicle.nil? %> 
+				{id: <%= service_item.vehicle.id %>, name: '<%= service_item.vehicle.id_code %>'}
+				<% end %>
+			],
+		zindex: 9999,
+		propertyToSearch: "name",
+		tokenLimit: 1
+	});
+
+
+
+	$("#service_details_search_item_id").tokenInput('<%=search_item_url %>', {
+		prePopulate: [ 
+			<% replacement_items.each do |replacement_item| %>
+				{id: <%= replacement_item.item.id %>, name: "<%= escape_javascript( replacement_item.item.name )%>"},
+			<% end %> 
+		],
+		zindex: 9999,
+		propertyToSearch: "name" 
+	});
+	
+	
+});
+</script>

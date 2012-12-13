@@ -1,0 +1,2 @@
+module StockConversionsHelper
+end

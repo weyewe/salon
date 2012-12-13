@@ -1,0 +1,14 @@
+$(document).ready(function(){
+	 
+	 
+		<% new_form = escape_javascript(  render :partial => "sales_return_entries/sales_return/return_product_form", :locals => {
+	    :new_object => @sales_return_entry , 
+			:url => update_sales_return_entry_url(@sales_return, @sales_return_entry) ,
+			:item => @item,
+			:sales_return => @sales_return
+	  })%>  
+	
+	$("#editEntry .modal-body").append('<%= new_form %>');
+	
+	jQuery('.prevent_double_submit').preventDoubleSubmit();
+});

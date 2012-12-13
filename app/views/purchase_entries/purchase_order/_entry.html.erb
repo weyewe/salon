@@ -1,0 +1,35 @@
+<% item = purchase_entry.item %>
+<tr id='entry-<%= purchase_entry.id %>'>
+	<td class='identifier'>
+		<%= item.name %> 
+		 
+		
+	</td>
+
+	<td>
+		<%= purchase_entry.quantity %>
+	</td>
+
+	<td>
+		<%= print_money( purchase_entry.price_per_piece )%>
+	</td>
+
+	<td>
+		<%= print_money( purchase_entry.total_purchase_price )%> 
+	</td>
+	<% if not purchase_order.is_confirmed? %>
+	
+		<td>
+			<%= link_to root_url, :class =>"delete_entry", :style => "cursor:pointer; text-decoration:none;" do %>
+				<i class='icon-remove'></i>Delete
+			<% end %> 
+		</td>
+	
+		<td>
+			<%= link_to edit_purchase_order_purchase_entry_url(purchase_order, purchase_entry), 
+				:class =>"edit_entry modal-toggler", :style => "cursor:pointer; text-decoration:none;" do %>
+				<i class='icon-edit'></i>Edit
+			<% end %>
+		</td>
+	<% end %>
+</tr>

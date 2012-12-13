@@ -1,0 +1,29 @@
+$(document).ready(function(){
+	var $service_search_box_form = $("#service_searcher"); 
+	$service_search_box_form.spin(false);
+	 
+	// show loading on the current table
+	var $employee_performance_table = $("#employee_performance_table");
+	$employee_performance_table.spin(false);
+	
+	<% employee_performance_table = escape_javascript(  render :partial => "service_items/employee_performance_table" , :locals => {
+		:service_items => @service_items 
+	})%>
+
+
+	$employee_performance_table.replaceWith('<%= employee_performance_table %>');
+	
+	
+	
+	var $employee_performance_summary = $("#employee_performance_summary");
+	$employee_performance_summary.spin(false);
+	
+	<% employee_performance_summary = escape_javascript( render :partial => "service_items/employee_performance_summary", :locals => {
+		:service_items => @service_items , 
+		:commissions => @commissions 
+	})%>
+
+
+	$employee_performance_summary.replaceWith('<%= employee_performance_summary %>');
+	
+});

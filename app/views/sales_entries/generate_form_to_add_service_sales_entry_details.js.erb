@@ -1,0 +1,17 @@
+$(document).ready(function(){
+	 // alert("Shit man");
+ 
+		<% new_form = escape_javascript(  render :partial => "sales_entries/sales_order/add_service_details_form", :locals => {
+	    :new_object => @sales_entry , 
+			:url => create_service_sales_entry_details_url(@sales_entry) ,
+			:service => @sales_entry.service_item.service,
+			:employees => Employee.active_employees
+	  })%> 
+	
+	$("#editEntry .modal-body").append('<%= new_form %>');
+	 
+	
+	
+	
+	jQuery('.prevent_double_submit').preventDoubleSubmit();
+});

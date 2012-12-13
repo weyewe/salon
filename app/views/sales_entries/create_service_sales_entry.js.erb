@@ -1,0 +1,43 @@
+$(document).ready(function(){
+	var $form = $("#add_service_form"); 
+	$form.spin(false);
+	
+	
+	<% if  @has_no_errors  %>
+		// clean the search item
+		$("#sales_entry_search_service_id").tokenInput("clear");
+		// clean the add product form
+		$form.remove(); 
+		
+		<% new_entry  = escape_javascript(  render :partial => 'sales_entries/sales_order/entry', :locals => {
+			:sales_entry => @sales_entry ,
+			:sales_order => @sales_order 
+		} )%>
+		
+	 $("#purchased_items tbody").append('<%= new_entry %>');
+	
+	 $.msgbox("Berhasil menambahkan service: <%= @service.name %>", 
+					{type: "info"});
+	
+		<% new_total_purchase  = escape_javascript(  render :partial => 'sales_entries/sales_order/total_purchase', :locals => { 
+			:sales_order => @sales_order 
+		} )%>
+
+		$("#total_purchase").replaceWith('<%= new_total_purchase %>');
+		
+		
+	<% elsif not @has_no_errors %>
+		<% new_form = escape_javascript(  render :partial => "sales_entries/sales_order/add_service_form", :locals => {
+	    :new_object => @sales_entry , 
+			:url => create_service_sales_entry_url(@sales_order) ,
+			:service => @service
+	  })%>
+		//replace the form, show the edit
+		$form.replaceWith("<%= new_form %>"); 
+		
+		$.msgbox("Error dalam menambahkan service: <%= @service.name %>", 
+					{type: "error"});
+	<% end %>
+ 
+	jQuery('.prevent_double_submit').preventDoubleSubmit();
+});

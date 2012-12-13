@@ -1,0 +1,56 @@
+$(document).ready(function(){
+	// remove the spin
+	var $form = $("#edit_product_form");
+	$form.spin(false); 
+	
+	// if update is successful
+		// remove the form 
+		// hide the modal 
+		// update the row entry 
+	// else
+		// replace the form with the faulty one 
+		// show all the error 
+	
+	
+		<% if   @has_no_errors  %> 
+			// clean the add product form
+			$form.remove(); 
+
+			<% new_entry  = escape_javascript(  render :partial => 'purchase_entries/purchase_order/entry', :locals => {
+				:purchase_entry => @purchase_entry ,
+				:purchase_order => @purchase_order 
+			} )%>
+
+			$("#entry-<%= @purchase_entry.id %>").replaceWith('<%= new_entry %>') 
+
+			$.msgbox("Berhasil update item: <%= @item.name %>", 
+						{type: "info"});
+
+			var $modal = $("#editEntry");
+			$modal.modal('hide');
+			
+			<% new_total_purchase  = escape_javascript(  render :partial => 'purchase_entries/purchase_order/total_purchase', :locals => { 
+				:purchase_order => @purchase_order 
+			} )%>
+
+			$("#total_purchase").replaceWith('<%= new_total_purchase %>');
+
+
+
+		<% elsif  not @has_no_errors %>
+			<% new_form = escape_javascript(  render :partial => "purchase_entries/purchase_order/edit_product_form", :locals => {
+		    :new_object => @purchase_entry , 
+				:url => update_purchase_entry_url(@purchase_order, @purchase_entry)  ,
+				:item => @item
+		  })%>
+			//replace the form, show the edit
+			$form.replaceWith("<%= new_form %>"); 
+
+			$.msgbox("Error dalam update item: <%= @item.name %>", 
+						{type: "error"});
+		<% end %>
+
+
+
+		jQuery('.prevent_double_submit').preventDoubleSubmit(); 
+});

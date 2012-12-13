@@ -1,0 +1,32 @@
+<% if new_object.persisted? %>
+	<% id = 'edit_object'%>
+<% else %>
+	<% id = 'new_object'%>
+<% end %>
+<%= simple_form_for( new_object, :url => url,
+      :method => :post , 
+      :html => {:class => "form-horizontal prevent_double_submit ajax-form   no_content_form",
+        :id => "#{id}"}) do |f| %> 
+			
+
+
+  <%= f.input :name  , :input_html => {:class => "input-xlarge "}, 
+  :label => "Nama" %>
+
+	<%= f.input :mobile_phone  , :input_html => {:class => "input-xlarge "}, 
+  :label => "Nomor Telpon" %>
+
+	<%= f.input :address  , :input_html => {:class => "input-xlarge ", :rows => '5'}, 
+  :label => "Alamat" %>
+ 
+
+  <div class="form-actions">
+	
+		<% if new_object.persisted? %>
+			<%= f.button :submit , :class => "btn btn-primary", :value=> "Update Employee" %>
+		<% else %>
+			<%= f.button :submit , :class => "btn btn-primary", :value=> "Create Employee" %>
+		<% end %>
+		
+  </div>
+<% end %>

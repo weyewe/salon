@@ -1,0 +1,98 @@
+<%= render :partial => "layouts/masthead" ,:locals => {
+	:title => "Scrap Item",
+	:description => "Pencatatan barang rusak"
+}%>
+
+<div id="content">
+
+	<div class="container">
+		
+		 
+		
+		<div class="row">
+			
+					<ul id="myTab" class="nav nav-pills">
+						<!-- <li class="active">
+								<%= link_to "Stock Migration", new_stock_adjustment_url %>
+							</li> -->
+						<!-- <li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li><a href="#tab3" data-toggle="tab">@fat</a></li>
+								<li><a href="#tab4" data-toggle="tab">@mdo</a></li>
+							</ul>
+						</li> -->
+					</ul>
+		
+			
+			
+			<div class="span8">
+			  
+				
+				
+				<div id="form_wrapper">
+				</div>
+			</div> <!-- /.span8 -->
+			
+			
+			<div class="span4">
+				
+				<%= render :partial => "scrap_items/scrap_item_trigger_form" %>
+				
+				<div id="item_info_wrapper">
+					<!-- <div id='item_info'>
+							</div> -->
+				</div>
+				
+			</div> <!-- /.span4 -->
+			
+		</div> <!-- /.row -->
+		
+		
+		<div class='row'>
+		</div><!--  /.row, for displaying the latest StockMigration performed -->
+		
+	
+	</div> <!-- /.container -->
+
+</div> <!-- /#content -->
+
+<% content_for :additional_js do %> 
+  <%= javascript_include_tag "jquery.tokeninput" 	%> 
+
+	<script type="text/javascript"> 
+	
+  $(document).ready(function() {
+			var $search_box = $("#signin_search_item_id");
+			var $form = $search_box.parents("form");
+			
+      $search_box.tokenInput( '<%= search_item_url %>' , {
+					propertyToSearch: "name",
+					tokenLimit: 1, 
+          onAdd: function (item) {
+							$form.spin("large", "black"); 
+							$("#selected_item_id").attr( 'value',  item['id'] );
+							
+ 							$.ajax({
+							      url: $form.attr("action"),
+							      type: "POST",
+							      data: $form.serialize(),
+							      dataType: 'script',
+							      success: function(response){ 
+								
+							      }
+							    }); 
+          } ,
+					onDelete: function(item){
+						$("#new_object").remove();
+						$("#item_info").remove();
+					}
+      });
+  });
+
+  </script>
+<% end %>
+
+<% content_for :additional_css do %> 
+  <%= stylesheet_link_tag "token-input", "token-input-facebook" 	%> 
+<% end %>

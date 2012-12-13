@@ -1,0 +1,8 @@
+<%= simple_form_for :sales_entry, { url: generate_sales_entry_add_service_form_url, 
+			:html => {:id=>"add_service_trigger_form" } } do |f| %>
+  <%= f.input :search_service_id , :label => "Service"  %> 
+	<%=	 hidden_field_tag 'selected_service_id', '' %> 
+	<%=	 hidden_field_tag 'sales_order_id', "#{sales_order.id}" %> 
+	<%= hidden_field_tag 'search_service_url', "#{search_service_url}"  %>
+<% end %>
+
