@@ -35,6 +35,15 @@ Salmod::Application.routes.draw do
   resources :purchase_returns
   match 'generate_purchase_return'  => 'purchase_returns#generate_purchase_return' , :as => :generate_purchase_return, :method => :post
   
+  
+  
+=begin
+  SERVICE RELATED
+=end
+
+  resources :service_categories do
+    resources :services 
+  end
 =begin
   Creating Sales Order
 =end
@@ -220,6 +229,14 @@ Salmod::Application.routes.draw do
 ##################################################
   match 'update_category/:category_id' => 'categories#update_category', :as => :update_category , :method => :post 
   match 'delete_category' => 'categories#delete_category', :as => :delete_category , :method => :post
+  
+##################################################
+##################################################
+######### Service CATEGORY
+##################################################
+##################################################
+  match 'update_service_category/:service_category_id' => 'service_categories#update_service_category', :as => :update_service_category , :method => :post 
+  match 'delete_service_category' => 'service_categories#delete_service_category', :as => :delete_service_category , :method => :post
   
 ##################################################
 ##################################################

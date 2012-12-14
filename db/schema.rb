@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121211060637) do
+ActiveRecord::Schema.define(:version => 20121214053141) do
 
   create_table "assignments", :force => true do |t|
     t.integer  "user_id"
@@ -37,6 +37,14 @@ ActiveRecord::Schema.define(:version => 20121211060637) do
     t.string   "phone"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "compatibilities", :force => true do |t|
+    t.integer  "service_component_id"
+    t.integer  "item_id"
+    t.integer  "quantity"
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
   end
 
   create_table "conversion_entries", :force => true do |t|
@@ -255,6 +263,25 @@ ActiveRecord::Schema.define(:version => 20121211060637) do
     t.datetime "updated_at",                            :null => false
   end
 
+  create_table "service_categories", :force => true do |t|
+    t.string   "name"
+    t.integer  "parent_id"
+    t.integer  "lft"
+    t.integer  "rgt"
+    t.integer  "depth"
+    t.boolean  "is_deleted", :default => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+  end
+
+  create_table "service_components", :force => true do |t|
+    t.integer  "service_id"
+    t.string   "name"
+    t.boolean  "is_deleted", :default => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+  end
+
   create_table "service_items", :force => true do |t|
     t.integer  "service_id"
     t.integer  "sales_entry_id"
@@ -277,6 +304,7 @@ ActiveRecord::Schema.define(:version => 20121211060637) do
 
   create_table "services", :force => true do |t|
     t.string   "name"
+    t.integer  "service_category_id"
     t.boolean  "is_deleted",                                               :default => false
     t.decimal  "recommended_selling_price", :precision => 11, :scale => 2, :default => 0.0
     t.integer  "number_of_employee"

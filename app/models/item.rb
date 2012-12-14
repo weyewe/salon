@@ -13,6 +13,9 @@ class Item < ActiveRecord::Base
   has_many :stock_adjustments
   has_many :purchase_returns
   
+  has_many :service_components, :through => :compatibilities
+  has_many :compatibilities
+  
   validates_uniqueness_of :name
   validates_presence_of :name 
   

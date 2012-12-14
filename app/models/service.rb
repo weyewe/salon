@@ -3,6 +3,8 @@ class Service < ActiveRecord::Base
   has_one :sales_entry, :through => :service_item
   has_one :service_item
   
+  belongs_to :service_category 
+  
   validates_presence_of :name 
   
   def set_price(price)

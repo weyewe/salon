@@ -27,6 +27,7 @@ joni = Employee.create(   :name => "Joni" )
 # CREATE ITEM CATEGORY 
 puts "Created the basic"
 spare_part =  Category.create :name => "Spare Part" 
+base_service_category =  ServiceCategory.create :name => "Service" 
 
 puts "created the first A"
   body_part = spare_part.create_sub_category :name => "Body Part" 

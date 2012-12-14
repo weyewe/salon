@@ -15,7 +15,7 @@ class Category < ActiveRecord::Base
   
   
   def self.all_selectable_categories
-    categories  = Category.order("depth  ASC ")
+    categories  = Category.where(:is_deleted => false ) .order("depth  ASC ")
     result = []
     categories.each do |category| 
       result << [ "#{category.name}" , 
