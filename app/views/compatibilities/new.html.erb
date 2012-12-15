@@ -81,7 +81,6 @@
 		<a  class="btn modal_closer"  >Close</a>
   </div>
 </div>
- 
 
 
 <div class="hidden" id="delete_entry_form_wrapper">
@@ -90,15 +89,7 @@
   <% end %>
 </div>
 
- 
 
 <% content_for :additional_js do %> 
-	<%= javascript_include_tag "jquery.tokeninput", 
-													"common_order/entry_creation"  	%> 
-	 
+	<%= javascript_include_tag "common_order/entry_creation"  	%>
 <% end %>
-
-<% content_for :additional_css do %> 
-  <%= stylesheet_link_tag "token-input"  	%> 
-<% end %>
-

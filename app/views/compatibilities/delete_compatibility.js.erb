@@ -1,0 +1,11 @@
+$(document).ready(function(){
+	
+	var $row = $("#sub_entry-<%= @compatibility.id %>")
+	$row.spin(false); 
+	
+	$row.remove(); 
+	
+	$.msgbox("Berhasil menghapus service compatibility: <%= @compatibility.item.name %> x <b><%= @compatibility.quantity %></b>");
+	 
+	
+});

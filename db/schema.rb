@@ -43,8 +43,9 @@ ActiveRecord::Schema.define(:version => 20121214053141) do
     t.integer  "service_component_id"
     t.integer  "item_id"
     t.integer  "quantity"
-    t.datetime "created_at",           :null => false
-    t.datetime "updated_at",           :null => false
+    t.boolean  "is_deleted",           :default => false
+    t.datetime "created_at",                              :null => false
+    t.datetime "updated_at",                              :null => false
   end
 
   create_table "conversion_entries", :force => true do |t|

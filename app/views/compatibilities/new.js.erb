@@ -1,0 +1,29 @@
+$(document).ready(function(){
+	  
+		<% new_form = escape_javascript(  render :partial => "compatibilities/new_object_form", :locals => {
+	    :new_object => @new_object , 
+			:url => service_component_compatibilities_url(@service_component) 
+	  })%>
+ 
+	$("#newEntry .modal-body").append('<%= new_form %>');
+	
+	jQuery('.prevent_double_submit').preventDoubleSubmit();
+	
+	var search_item_url = '<%= search_item_url %>'; 
+	var $search_item_box = $("#search_item_id");
+  $search_item_box.tokenInput( search_item_url , {
+		propertyToSearch: "name",
+		tokenLimit: 1, 
+		onAdd: function (item) {
+
+		} ,
+		onDelete: function(item){
+		},
+		zindex: 9999,
+		prePopulate:   	[
+			<% if not @new_object.item_id.nil? %> 
+				{id: <%= @new_object.item_id  %>, name: '<%= @new_object.item.name %>'}
+			<% end %>
+		]
+	});
+});

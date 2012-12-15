@@ -1,0 +1,15 @@
+<div  id="sub_entry-<%= object.id %>"  class='sub_entry' style='margin-bottom:5px; border-bottom: 1px solid dashed rgb(250,250,250);'>
+	<%= object.item.name %> x <b><%= object.quantity %></b><br />
+	<%= link_to delete_compatibility_url(service_component), 
+			:class =>"delete_entry_flexible", 
+			:style => "cursor:pointer; text-decoration:none;" do %>
+		<i class='icon-remove'></i>Delete
+	<% end %> 
+	| 
+	<%= link_to edit_service_component_compatibility_url(service_component, object), 
+			:class =>"edit_entry modal-toggler", 
+			:style => "cursor:pointer; text-decoration:none;" do %>
+		<i class='icon-edit'></i>Edit
+	<% end %>
+	
+</div>

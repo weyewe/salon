@@ -40,4 +40,21 @@ class ServiceComponent < ActiveRecord::Base
     self.save 
   end
   
+=begin
+  COMPATIBILITY
+=end
+  def active_compatibilities
+    self.compatibilities.where(:is_deleted => false).order("created_at DESC")
+  end
+  
+  def add_compatibility( compatibility_params)
+    new_compatibility = Compatibility.new
+    new_compatibility.quantity  = compatibility_params[:quantity]
+    new_compatibility.item_id  = compatibility_params[:item_id]
+    new_compatibility.service_component_id = self.id 
+    
+    new_compatibility.save
+    return new_compatibility
+  end
+   
 end

@@ -4,63 +4,18 @@
 	</td>
 	
 	<td>
-		<%= link_to root_url, :class =>"delete_entry", :style => "cursor:pointer; text-decoration:none;" do %>
+		<%= link_to new_service_component_compatibility_url(object), :class =>"new_entry", :style => "cursor:pointer; text-decoration:none;" do %>
 			<i class='icon-plus'></i>Tambah Compatibility
 		<% end %>
 		<hr />
 		
 		<ul class='component_wrapper' id="component_from_service-<%= object.id  %>">
-			<div  >
-				Loreal Mazzelle eceran 50g x <b>5</b><br />
-				<%= link_to root_url, :class =>"delete_entry", :style => "cursor:pointer; text-decoration:none;" do %>
-					<i class='icon-remove'></i>Delete
-				<% end %> 
-				| 
-				<%= link_to edit_service_url(object), 
-					:class =>"edit_entry modal-toggler", :style => "cursor:pointer; text-decoration:none;" do %>
-					<i class='icon-edit'></i>Edit
-				<% end %>
-				
-			</div>
-			
-			<div  >
-				Kerastase eceran 50g x <b>5</b><br />
-				<%= link_to root_url, :class =>"delete_entry", :style => "cursor:pointer; text-decoration:none;" do %>
-					<i class='icon-remove'></i>Delete
-				<% end %> 
-				| 
-				<%= link_to edit_service_url(object), 
-					:class =>"edit_entry modal-toggler", :style => "cursor:pointer; text-decoration:none;" do %>
-					<i class='icon-edit'></i>Edit
-				<% end %>
-				
-			</div>
-			
-			<div  >
-				MaizooBlue eceran 50g x <b>5</b><br />
-				<%= link_to root_url, :class =>"delete_entry", :style => "cursor:pointer; text-decoration:none;" do %>
-					<i class='icon-remove'></i>Delete
-				<% end %> 
-				| 
-				<%= link_to edit_service_url(object), 
-					:class =>"edit_entry modal-toggler", :style => "cursor:pointer; text-decoration:none;" do %>
-					<i class='icon-edit'></i>Edit
-				<% end %>
-				
-			</div>
-			
-			<div  >
-				Mojito eceran 50g x <b>5</b><br />
-				<%= link_to root_url, :class =>"delete_entry", :style => "cursor:pointer; text-decoration:none;" do %>
-					<i class='icon-remove'></i>Delete
-				<% end %> 
-				| 
-				<%= link_to edit_service_url(object), 
-					:class =>"edit_entry modal-toggler", :style => "cursor:pointer; text-decoration:none;" do %>
-					<i class='icon-edit'></i>Edit
-				<% end %>
-				
-			</div>
+			<% object.active_compatibilities.each do |compatibility| %>
+				<%= render :partial => "compatibilities/entry", :locals => {
+					:object => compatibility,
+					:service_component => object
+				}%>
+			<% end %> 
 		</ul>
 	</td> 
 	

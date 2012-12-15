@@ -5,6 +5,7 @@ class CreateCompatibilities < ActiveRecord::Migration
       t.integer :item_id 
       
       t.integer :quantity 
+      t.boolean :is_deleted ,:default => false 
       
       
       t.timestamps

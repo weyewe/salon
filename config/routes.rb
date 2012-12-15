@@ -48,6 +48,10 @@ Salmod::Application.routes.draw do
   resources :services do
     resources :service_components 
   end
+  
+  resources :service_components do
+    resources :compatibilities 
+  end
 =begin
   Creating Sales Order
 =end
@@ -250,6 +254,14 @@ Salmod::Application.routes.draw do
   match 'update_service_component/:service_id/service_component/:id' => 'service_components#update_service_component', :as => :update_service_component , :method => :post 
   match 'delete_service_component/:service_id' => 'service_components#delete_service_component', :as => :delete_service_component , :method => :post
 
+
+##################################################
+##################################################
+######### Service COMPATIBILITY
+##################################################
+##################################################
+  match 'update_compatibility/:service_component_id/compatibility/:id' => 'compatibilities#update_compatibility', :as => :update_compatibility , :method => :post 
+  match 'delete_compatibility/:service_component_id' => 'compatibilities#delete_compatibility', :as => :delete_compatibility , :method => :post
 
   
 ##################################################

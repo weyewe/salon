@@ -1,7 +1,7 @@
 class ServiceComponentsController < ApplicationController
   def new
     @service = Service.find_by_id params[:service_id]
-    @objects = ServiceComponent.active_components(@service) 
+    @objects = @service.active_service_components
     @new_object = ServiceComponent.new 
     
     respond_to do |format|

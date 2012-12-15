@@ -37,6 +37,43 @@ $(document).ready(function(){
 		return false;  
 	});
 	
+	$(".delete_entry_flexible").live("click", function(){
+		var yes_value = "Yes"; 
+		var cancel_value = 'false';
+		var $this = $(this); 
+		var $row = $this.parents("div.sub_entry")
+		var entry_id = $row.attr("id").split('-')[1];  
+		var $form = $("#delete_entry_form_wrapper form"); 
+		var $identifier = $(".identifier", $row);
+		var post_url  = $(this).attr("href");
+
+		$.msgbox("Yakin untuk menghapus:" + $identifier.text() +  " ?", {
+		  type: "confirm",
+		  buttons : [
+		    {type: "submit", value: yes_value}, 
+		    {type: "cancel", value: "Cancel"}
+		  ]
+		}, function(result) { 
+			if( result == yes_value){ 
+
+				$("#object_to_destroy_id").attr("value", entry_id ); 
+				$row.spin("large", "black"); 
+
+		    $.ajax({
+		      url: post_url,
+		      type: "POST",
+		      data: $form.serialize(),
+		      dataType: 'script',
+		      success: function(response){
+		        $form.clearForm();
+		      }
+		    }); 
+			}
+		});
+
+		return false;  
+	});
+	
 	// updating sales entry 
 	// what will happen?
 	//  1. show the modal, load for the edit form
@@ -52,7 +89,13 @@ $(document).ready(function(){
 	
 	
 	$(".edit_entry").live("click", function(){ 
+		var $this = $(this);
 		var $modal = $("#editEntry");
+		
+		
+		
+		var text = $this.text();
+		$(".modal-header h3", $modal).text( text );
 		$modal.modal('show'); 
 		
 		$(".modal_closer", $modal ).click(function(){
@@ -77,8 +120,12 @@ $(document).ready(function(){
 		return false; 
 	});
 	
-	$(".new_entry").live("click", function(){ 
+	$(".new_entry ").live("click", function(){ 
+		var $this = $(this);
 		var $modal = $("#newEntry");
+		var text = $this.text();
+		$(".modal-header h3", $modal).text( text );
+		
 		$modal.modal('show'); 
 		
 		$(".modal_closer", $modal ).click(function(){
