@@ -1,5 +1,29 @@
 require 'spec_helper'
 
 describe Service do
-  pending "add some examples to (or delete) #{__FILE__}"
+  before(:each) do
+    @service_category = ServiceCategory.create :name => "Service" 
+    @service = Service.create( :name => "Potong")
+  end
+  
+  it 'should only allow uniq service name, regardless of case' do 
+    new_service = Service.create(:name => "potong")
+    new_service.should_not be_valid  
+  end
+  
+  it 'should create duplicate service name if the new name is the only one being active' do
+    @service.delete 
+    new_service = Service.create(:name => "potong")
+    new_service.should be_valid 
+  end
+  
+  it 'should not allow update if it is a duplicate of currently present service name' do
+    new_service = Service.create(:name => "monkey")
+    new_service.should be_valid
+    
+    new_service.update_attributes(:name => 'potong')
+    new_service.should_not be_valid 
+  end
+  
+  
 end
