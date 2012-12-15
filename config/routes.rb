@@ -44,6 +44,10 @@ Salmod::Application.routes.draw do
   resources :service_categories do
     resources :services 
   end
+  
+  resources :services do
+    resources :service_components 
+  end
 =begin
   Creating Sales Order
 =end
@@ -237,6 +241,16 @@ Salmod::Application.routes.draw do
 ##################################################
   match 'update_service_category/:service_category_id' => 'service_categories#update_service_category', :as => :update_service_category , :method => :post 
   match 'delete_service_category' => 'service_categories#delete_service_category', :as => :delete_service_category , :method => :post
+  
+##################################################
+##################################################
+######### Service COMPONENT
+##################################################
+##################################################
+  match 'update_service_component/:service_id/service_component/:id' => 'service_components#update_service_component', :as => :update_service_component , :method => :post 
+  match 'delete_service_component/:service_id' => 'service_components#delete_service_component', :as => :delete_service_component , :method => :post
+
+
   
 ##################################################
 ##################################################

@@ -13,21 +13,14 @@ class ServiceCategory < ActiveRecord::Base
      
     if not current_service_category.name.nil? and  
         current_service_category.has_duplicate_entry?   and not current_service_category.persisted?
-      puts "~~~~~~~~~~~~~~~~THIS IS A CALL FROM UNIQUE NON DELETED NAME\n"*5 
       errors.add(:name , "Sudah ada service dengan nama sejenis" )  
     end
   end
   
   def has_duplicate_entry?
-    current_service_category=  self 
-    # ServiceCategory.exists?(['lower(name) = ? and is_deleted = ? ', current_service_category.name.downcase , false]) and
-    # ServiceCategory.where(:name => current_service_category.name , :is_deleted => false).count > 0
+    current_service_category=  self  
     ServiceCategory.find(:all, :conditions => ['lower(name) = :name and is_deleted = :is_deleted ', 
-                {:name => current_service_category.name.downcase, :is_deleted => false }]).count != 0 
-    
-    # Model.find(:all,:conditions=>["created > :start_date and created < :end_date", 
-    #         {:start_date => params[:one], :end_date => params[:two]}])
-    # 
+                {:name => current_service_category.name.downcase, :is_deleted => false }]).count != 0  
   end
    
   

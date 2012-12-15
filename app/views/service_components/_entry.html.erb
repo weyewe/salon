@@ -1,0 +1,80 @@
+<tr id="entry-<%= object.id %>">
+	<td>
+		<%=  object.name %>
+	</td>
+	
+	<td>
+		<%= link_to root_url, :class =>"delete_entry", :style => "cursor:pointer; text-decoration:none;" do %>
+			<i class='icon-plus'></i>Tambah Compatibility
+		<% end %>
+		<hr />
+		
+		<ul class='component_wrapper' id="component_from_service-<%= object.id  %>">
+			<div  >
+				Loreal Mazzelle eceran 50g x <b>5</b><br />
+				<%= link_to root_url, :class =>"delete_entry", :style => "cursor:pointer; text-decoration:none;" do %>
+					<i class='icon-remove'></i>Delete
+				<% end %> 
+				| 
+				<%= link_to edit_service_url(object), 
+					:class =>"edit_entry modal-toggler", :style => "cursor:pointer; text-decoration:none;" do %>
+					<i class='icon-edit'></i>Edit
+				<% end %>
+				
+			</div>
+			
+			<div  >
+				Kerastase eceran 50g x <b>5</b><br />
+				<%= link_to root_url, :class =>"delete_entry", :style => "cursor:pointer; text-decoration:none;" do %>
+					<i class='icon-remove'></i>Delete
+				<% end %> 
+				| 
+				<%= link_to edit_service_url(object), 
+					:class =>"edit_entry modal-toggler", :style => "cursor:pointer; text-decoration:none;" do %>
+					<i class='icon-edit'></i>Edit
+				<% end %>
+				
+			</div>
+			
+			<div  >
+				MaizooBlue eceran 50g x <b>5</b><br />
+				<%= link_to root_url, :class =>"delete_entry", :style => "cursor:pointer; text-decoration:none;" do %>
+					<i class='icon-remove'></i>Delete
+				<% end %> 
+				| 
+				<%= link_to edit_service_url(object), 
+					:class =>"edit_entry modal-toggler", :style => "cursor:pointer; text-decoration:none;" do %>
+					<i class='icon-edit'></i>Edit
+				<% end %>
+				
+			</div>
+			
+			<div  >
+				Mojito eceran 50g x <b>5</b><br />
+				<%= link_to root_url, :class =>"delete_entry", :style => "cursor:pointer; text-decoration:none;" do %>
+					<i class='icon-remove'></i>Delete
+				<% end %> 
+				| 
+				<%= link_to edit_service_url(object), 
+					:class =>"edit_entry modal-toggler", :style => "cursor:pointer; text-decoration:none;" do %>
+					<i class='icon-edit'></i>Edit
+				<% end %>
+				
+			</div>
+		</ul>
+	</td> 
+	
+	<td>
+		<%= link_to root_url, :class =>"delete_entry", :style => "cursor:pointer; text-decoration:none;" do %>
+			<i class='icon-remove'></i>Delete
+		<% end %> 
+	</td>
+
+	<td>
+		<%= link_to edit_service_service_component_url(service, object), 
+			:class =>"edit_entry modal-toggler", :style => "cursor:pointer; text-decoration:none;" do %>
+			<i class='icon-edit'></i>Edit
+		<% end %>
+	</td>
+</tr>
+

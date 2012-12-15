@@ -1,0 +1,11 @@
+$(document).ready(function(){
+	
+	var $row = $("#entry-<%= @service_component.id %>")
+	$row.spin(false); 
+	
+	$row.remove(); 
+	
+	$.msgbox("Berhasil menghapus service component: <%= @service_component.name %>");
+	 
+	
+});

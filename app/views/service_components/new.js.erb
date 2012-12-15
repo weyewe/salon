@@ -1,0 +1,11 @@
+$(document).ready(function(){
+	  
+		<% new_form = escape_javascript(  render :partial => "service_components/new_object_form", :locals => {
+	    :new_object => @new_object , 
+			:url => service_service_components_url(@service) 
+	  })%>
+ 
+	$("#newEntry .modal-body").append('<%= new_form %>');
+	
+	jQuery('.prevent_double_submit').preventDoubleSubmit();
+});
