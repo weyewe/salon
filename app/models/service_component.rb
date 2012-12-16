@@ -8,26 +8,33 @@ class ServiceComponent < ActiveRecord::Base
   validate :unique_non_deleted_name 
   
   def unique_non_deleted_name
-    current_service_component = self
+    current_service = self
      
-    if not current_service_component.name.nil? and  
-        current_service_component.has_duplicate_entry?    
-      if not current_service_component.persisted?
+     # claim.status_changed?
+    if not current_service.name.nil? 
+      if not current_service.persisted? and current_service.has_duplicate_entry?  
         errors.add(:name , "Sudah ada service component dengan nama sejenis" )  
-      elsif current_service_component.persisted? and current_service_component.name_changed?  
+      elsif current_service.persisted? and 
+            current_service.name_changed?  and
+            current_service.has_duplicate_entry?  
+        # this is on update
         errors.add(:name , "Sudah ada service component dengan nama sejenis" )  
       end
     end
-    
-    
   end
   
   def has_duplicate_entry?
-    current_service_component  = self  
-    ServiceComponent.find(:all, :conditions => 
-                ['lower(name) = :name and is_deleted = :is_deleted  and service_id = :service_id', 
-                {:name => current_service_component.name.downcase, :is_deleted => false , 
-                  :service_id => current_service_component.service_id}]).count != 0  
+    current_service=  self  
+    self.class.find(:all, :conditions => ['lower(name) = :name and is_deleted = :is_deleted  and service_id = :service_id', 
+                {:name => current_service.name.downcase, :is_deleted => false, 
+                    :service_id => current_service.service_id }]).count != 0  
+  end
+  
+  def duplicate_entries
+    current_service=  self  
+    return self.class.find(:all, :conditions => ['lower(name) = :name and is_deleted = :is_deleted  and service_id = :service_id', 
+                {:name => current_service.name.downcase, :is_deleted => false, 
+                    :service_id => current_service.service_id }]) 
   end
   
   def ServiceComponent.active_components(service) 

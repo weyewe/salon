@@ -103,4 +103,9 @@ class StockConversion < ActiveRecord::Base
     self.conversion_entries.where(:is_deleted => false )
   end
   
+  def delete
+    self.is_deleted = true 
+    self.save 
+  end
+  
 end

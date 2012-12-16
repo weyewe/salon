@@ -17,6 +17,11 @@ describe Service do
     new_service.should be_valid 
   end
   
+  it 'should allow update , like setting is_deleted as true' do
+    @service.delete
+    @service.is_deleted.should be_true 
+  end
+  
   it 'should not allow update if it is a duplicate of currently present service name' do
     new_service = Service.create(:name => "monkey")
     new_service.should be_valid

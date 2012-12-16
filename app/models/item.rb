@@ -16,22 +16,38 @@ class Item < ActiveRecord::Base
   has_many :service_components, :through => :compatibilities
   has_many :compatibilities
   
-  validates_uniqueness_of :name
+  # validates_uniqueness_of :name
   validates_presence_of :name 
   
-  # validate :initial_quantity_non_negative, :initial_base_price_non_negative
+  validate :unique_non_deleted_name 
   
-  # def initial_quantity_non_negative 
-  #    if not self.initial_quantity.present? or  self.initial_quantity < 0  
-  #      errors.add(:initial_quantity , "Invalid Initial Quantity. Tidak boleh kurang dari 0.") 
-  #    end
-  #  end
-  #  
-  #  def initial_base_price_non_negative 
-  #    if not self.initial_base_price_non_negative.present? or  self.initial_base_price_non_negative < BigDecimal('0')
-  #      errors.add(:initial_base_price_non_negative , "Invalid Harga Dasar Awal. Tidak boleh kurang dari 0.") 
-  #    end
-  #  end
+  def unique_non_deleted_name
+    current_service = self
+     
+     # claim.status_changed?
+    if not current_service.name.nil? 
+      if not current_service.persisted? and current_service.has_duplicate_entry?  
+        errors.add(:name , "Sudah ada item dengan nama sejenis" )  
+      elsif current_service.persisted? and 
+            current_service.name_changed?  and
+            current_service.has_duplicate_entry?  
+        # this is on update
+        errors.add(:name , "Sudah ada item dengan nama sejenis" )  
+      end
+    end
+  end
+  
+  def has_duplicate_entry?
+    current_service=  self  
+    self.class.find(:all, :conditions => ['lower(name) = :name and is_deleted = :is_deleted  ', 
+                {:name => current_service.name.downcase, :is_deleted => false }]).count != 0  
+  end
+  
+  def duplicate_entries
+    current_service=  self  
+    return self.class.find(:all, :conditions => ['lower(name) = :name and is_deleted = :is_deleted  ', 
+                {:name => current_service.name.downcase, :is_deleted => false  }]) 
+  end
   
   def self.active_items
     Item.where(:is_deleted => false).order("created_at DESC")

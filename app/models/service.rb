@@ -14,28 +14,27 @@ class Service < ActiveRecord::Base
     current_service = self
      
      # claim.status_changed?
-    if not current_service.name.nil? and  
-        current_service.has_duplicate_entry?    
-      if not current_service.persisted?
-        errors.add(:name , "Sudah ada service component dengan nama sejenis" )  
+    if not current_service.name.nil? 
+      if not current_service.persisted? and current_service.has_duplicate_entry?  
+        errors.add(:name , "Sudah ada service  dengan nama sejenis" )  
       elsif current_service.persisted? and 
             current_service.name_changed?  and
-            current_service.duplicate_entries.count > 1 
+            current_service.has_duplicate_entry?  
         # this is on update
-        errors.add(:name , "Sudah ada service component dengan nama sejenis" )  
+        errors.add(:name , "Sudah ada service  dengan nama sejenis" )  
       end
     end
   end
   
   def has_duplicate_entry?
     current_service=  self  
-    Service.find(:all, :conditions => ['lower(name) = :name and is_deleted = :is_deleted ', 
+    self.class.find(:all, :conditions => ['lower(name) = :name and is_deleted = :is_deleted ', 
                 {:name => current_service.name.downcase, :is_deleted => false }]).count != 0  
   end
   
   def duplicate_entries
     current_service=  self  
-    return Service.find(:all, :conditions => ['lower(name) = :name and is_deleted = :is_deleted ', 
+    return self.class.find(:all, :conditions => ['lower(name) = :name and is_deleted = :is_deleted ', 
                 {:name => current_service.name.downcase, :is_deleted => false }]) 
   end
   
@@ -68,5 +67,10 @@ class Service < ActiveRecord::Base
     
     new_service_component.save
     return new_service_component
+  end
+  
+  def delete 
+    self.is_deleted = true 
+    self.save
   end
 end

@@ -3,10 +3,40 @@ class Customer < ActiveRecord::Base
   has_many :vehicles 
   
   validates_presence_of :name 
-  validates_uniqueness_of :name
+  # validates_uniqueness_of :name
   
   has_many :sales_orders 
   belongs_to :town 
+  
+  validate :unique_non_deleted_name 
+  
+  def unique_non_deleted_name
+    current_service = self
+     
+     # claim.status_changed?
+    if not current_service.name.nil? 
+      if not current_service.persisted? and current_service.has_duplicate_entry?  
+        errors.add(:name , "Sudah ada customer dengan nama sejenis" )  
+      elsif current_service.persisted? and 
+            current_service.name_changed?  and
+            current_service.has_duplicate_entry?  
+        # this is on update
+        errors.add(:name , "Sudah ada customer dengan nama sejenis" )  
+      end
+    end
+  end
+  
+  def has_duplicate_entry?
+    current_service=  self  
+    self.class.find(:all, :conditions => ['lower(name) = :name and is_deleted = :is_deleted ', 
+                {:name => current_service.name.downcase, :is_deleted => false }]).count != 0  
+  end
+  
+  def duplicate_entries
+    current_service=  self  
+    return self.class.find(:all, :conditions => ['lower(name) = :name and is_deleted = :is_deleted ', 
+                {:name => current_service.name.downcase, :is_deleted => false }]) 
+  end
   
   def new_vehicle_registration( employee ,  vehicle_params ) 
     id_code = vehicle_params[:id_code]

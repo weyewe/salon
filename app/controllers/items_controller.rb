@@ -36,7 +36,7 @@ class ItemsController < ApplicationController
     @items = [] 
     item_query = '%' + search_params + '%'
     # on PostGre SQL, it is ignoring lower case or upper case 
-    @items = Item.where{ (name =~ item_query)  }.map{|x| {:name => x.name, :id => x.id }}
+    @items = Item.where{ (name =~ item_query)  & (is_deleted.eq false ) }.map{|x| {:name => x.name, :id => x.id }}
     
     respond_to do |format|
       format.html # show.html.erb

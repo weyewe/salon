@@ -24,6 +24,7 @@
 								<%= f.input :selling_price_per_piece ,
 											:label =>"Harga Satuan", 
 											:hint => "Recommended selling price: #{print_money(item.recommended_selling_price)}", 
+											:input_html => { :value => "#{ item.recommended_selling_price.to_i }" },
 											:as => :string %>
 			 
 							

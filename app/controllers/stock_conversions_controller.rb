@@ -40,4 +40,10 @@ class StockConversionsController < ApplicationController
     # if there is  mutation executed, we can't edit the stock conversion 
     # solution? create the new one. 
   end
+  
+  def delete_stock_conversion
+    @stock_conversion = StockConversion.find_by_id params[:object_to_destroy_id]
+    @stock_conversion.delete 
+  end
+  
 end

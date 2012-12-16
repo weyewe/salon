@@ -1,6 +1,6 @@
 <% source = object.one_to_one_source %> 
 <% target = object.one_to_one_target %>
-<tr> 
+<tr id="entry-<%= object.id %>"> 
 	<td><%= object.code %></td>
 	<td><b><%= source.quantity %>x</b> <%= source.item.name  %></td>
 	<td><b><%= target.quantity %>x</b>  <%= target.item.name %></td>
@@ -12,10 +12,10 @@
 		<% end %> 
 	</td>
 
-	<td>
-		<%= link_to edit_vendor_url(object), 
+	<!-- <td>
+		<%#= link_to edit_stock_conversion_url(object), 
 			:class =>"edit_entry modal-toggler", :style => "cursor:pointer; text-decoration:none;" do %>
 			<i class='icon-edit'></i>Edit
-		<% end %>
-	</td>
+		<%# end %>
+	</td> -->
 </tr>
