@@ -5,7 +5,7 @@ class SalesOrder < ActiveRecord::Base
   has_many :maintenances  # no, we don't go with the maintenance. stick with the MVP, willy! 
   has_many :sales_entries 
   has_many :sales_returns 
-  
+  has_many :service_usages 
   # has_many :sales_entries, :through => :stock_entry_usages  # can be service or item sold 
   # has_many :stock_entry_usages
   
@@ -158,6 +158,7 @@ class SalesOrder < ActiveRecord::Base
     end 
     
     new_object.save 
+    # gonna create service usage as well 
     new_object.generate_service_item 
     
     return new_object

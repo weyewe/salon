@@ -4,6 +4,7 @@ class ServiceComponent < ActiveRecord::Base
   has_many :items, :through => :compatibilities
   has_many :compatibilities 
   validates_presence_of :name 
+  has_many :service_usages
   
   validate :unique_non_deleted_name 
   
@@ -51,6 +52,18 @@ class ServiceComponent < ActiveRecord::Base
   def delete
     self.is_deleted = true 
     self.save 
+    
+    #  find the service usage 
+    self.unconfirmed_service_usage.each do |service_usage|
+      service_usage.destroy 
+    end
+  end
+  
+  def unconfirmed_service_usage
+    
+    # self.service_usages.where(:service_item => {:sales_entry => {:sales_order => {:is_confirmed => false }} })
+    
+    self.service_usages.where(:sales_order => {:is_confirmed => false })
   end
   
 =begin
@@ -68,6 +81,14 @@ class ServiceComponent < ActiveRecord::Base
     
     new_compatibility.save
     return new_compatibility
+  end
+  
+=begin
+  SALON specific
+=end
+
+  def first_available_compatibility
+    self.active_compatibilities.first 
   end
    
 end

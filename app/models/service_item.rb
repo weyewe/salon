@@ -10,6 +10,8 @@ class ServiceItem < ActiveRecord::Base
   belongs_to :service 
   belongs_to :vehicle
   
+  has_many :service_usages
+  
   
   # only 1 employee per service 
   # def add_employee_participation( employee ) 

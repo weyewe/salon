@@ -5,4 +5,6 @@ class Compatibility < ActiveRecord::Base
   
   validates_presence_of :item_id 
   validates_presence_of :quantity
+  
+  has_many :service_usages
 end

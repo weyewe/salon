@@ -136,7 +136,18 @@ class SalesEntry < ActiveRecord::Base
       return nil 
     end
     
-    ServiceItem.create :service_id => self.entry_id, :sales_entry_id => self.id  
+    service_item = ServiceItem.create :service_id => self.entry_id, :sales_entry_id => self.id  
+    service = service_item.service
+    
+    # create service usage, but don't execute it yet 
+    service.active_service_components.each do |service_component|
+      default_compatibility = service_component.first_available_compatibility 
+      ServiceUsage.create :service_item_id => service_item.id, 
+              :compatibility_id => default_compatibility.id ,
+              :service_component_id => service_component.id ,
+              :sales_order_id => self.sales_order_id
+    end
+     
   end
    
   

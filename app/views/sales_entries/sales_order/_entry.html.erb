@@ -14,33 +14,35 @@
 			 
 				</ul>
 			<% end %>
+	 
 			
 			<ul>
-				Kendaraan:
-				<% if sales_entry.service_item.vehicle.nil? %>
+				<% if sales_entry.service_item.service_usages.length == 0  %>
 					<li>N/A</li>
 				<% else %>
-					<li><%= sales_entry.service_item.vehicle.id_code %></li>
-				<% end %> 
-			</ul>
-			
-			<ul>
-				Item:
-				<% if sales_entry.service_item.replacement_items.length == 0  %>
-					<li>N/A</li>
-				<% else %>
-					<% sales_entry.service_item.items.each do |item| %> 
-						<li><%= item.name  %></li>
+					<% sales_entry.service_item.service_usages.each do |service_usage| %> 
+						<div id='service_usage-<%= service_usage.id %>'>
+							<!-- The details -->
+							<%=  "#{service_usage.compatibility.item.name}" %>
+							x
+							<b>
+								<%= "#{service_usage.compatibility.quantity}" %>
+							</b>
+							<!-- The Edit selection --> 
+							<br />
+							
+							<% if not sales_order.is_confirmed? and service_usage.service_component.compatibilities.length > 1  %>
+								<%#= link_to "Edit Entry", root_url %>
+								<%= link_to generate_form_to_add_service_sales_entry_details_url(  sales_entry), 
+									:class =>"edit_entry modal-toggler", :style => "cursor:pointer; text-decoration:none;" do %>
+									<i class='icon-edit'></i>Edit
+								<% end %>
+							<% end %>
+							<hr />
+						</div>
 					<% end %>
 				<% end %>
-				
-				
-				<% if not sales_order.is_confirmed? %>
-					<%= link_to generate_form_to_add_service_sales_entry_details_url(  sales_entry), 
-						:class =>"edit_entry modal-toggler", :style => "cursor:pointer; text-decoration:none;" do %>
-						<i class='icon-edit'></i>Edit
-					<% end %>
-				<% end %>
+		 
 			</ul>
 		<% end %>
 		
