@@ -16,12 +16,18 @@ class Customer < ActiveRecord::Base
      # claim.status_changed?
     if not current_service.name.nil? 
       if not current_service.persisted? and current_service.has_duplicate_entry?  
-        errors.add(:name , "Sudah ada customer dengan nama sejenis" )  
+        errors.add(:name , "Sudah ada customer  dengan nama sejenis" )  
       elsif current_service.persisted? and 
             current_service.name_changed?  and
-            current_service.has_duplicate_entry?  
-        # this is on update
-        errors.add(:name , "Sudah ada customer dengan nama sejenis" )  
+            current_service.has_duplicate_entry?   
+            # if duplicate entry is itself.. no error
+            # else.. some error
+            
+          if current_service.duplicate_entries.count ==1  and 
+              current_service.duplicate_entries.first.id == current_service.id 
+          else
+            errors.add(:name , "Sudah ada customer  dengan nama sejenis" )  
+          end 
       end
     end
   end

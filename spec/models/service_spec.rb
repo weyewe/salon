@@ -30,5 +30,11 @@ describe Service do
     new_service.should_not be_valid 
   end
   
+  it 'should allow update if the duplicate name is a variant of itself' do
+    @service.name = 'potong'
+    @service.save
+    @service.should be_valid
+  end
+  
   
 end
